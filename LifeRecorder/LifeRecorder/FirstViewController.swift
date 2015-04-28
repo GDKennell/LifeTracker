@@ -8,45 +8,37 @@
 
 import UIKit
 
-class FirstViewController: UIViewController {
+let MoodRowIndex = 0;
+let SleepRowIndex = 1;
+let ActivitiesRowIndex = 2;
+let DrugsRowIndex = 3;
+
+class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     // MARK: Properties
+    var moodInputViewController: MoodInputViewController?;
 
-    var leftThumbImageView: UIImageView!;
+    let sectionTitles = ["Mood", "Sleep", "Activities", "Drugs"];
 
-    var thumbNumber: Int!, thumbFileName: String!;
+    @IBOutlet var tableView: UITableView?;
 
-    var currentTouchLocation: CGPoint?;
-
-    let movementThreshold = 8;
-    let minThumbNumber = 1;
-    let maxThumbNumber = 15;
     // MARK: Lifetime
-
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil);
-    }
 
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder);
     }
 
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil);
+    }
+
     // MARK: View Life Cycle
 
     override func viewDidLoad() {
-        super.viewDidLoad()
-        thumbNumber = 1;
-        updateFileName();
-        self.leftThumbImageView = UIImageView(frame: self.view.frame);
-        if let theImage = UIImage(named: self.thumbFileName) {
-            self.leftThumbImageView.image = theImage;
-        }
-        else {
-            println("Couldn't create the image named " + self.thumbFileName);
-            exit(1);
-        }
-        self.view.addSubview(leftThumbImageView);
-        leftThumbImageView.frame = self.view.frame;
-        // Do any additional setup after loading the view, typically from a nib.
+        super.viewDidLoad();
+//        var transition = CATransition();
+//        transition.type = kCATransitionPush;
+//        transition.subtype = kCATransitionFromLeft;
+//        self.view.windo.layer.addAnimation(transition, forKey: nil);
     }
 
     override func didReceiveMemoryWarning() {
@@ -54,56 +46,87 @@ class FirstViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    // MARK: Touch Handling
+    // MARK: UITableViewDelegate
 
-    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
-        super.touchesBegan(touches, withEvent: event)
-
-        let possibleTouch = touches.first as? UITouch
-
-        if let touch = possibleTouch {
-            // The user has tapped outside the text field, resign first responder, if necessary.
-            self.currentTouchLocation = touch.locationInView(self.view);
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        switch indexPath.row {
+        case MoodRowIndex:
+            self .performSegueWithIdentifier("MoodIdentifierSegue", sender: self);
+        default:
+            UIAlertView(title: "Oops!", message: "I havnen't built that yet", delegate: nil, cancelButtonTitle: "Ok").show();
         }
+        tableView.deselectRowAtIndexPath(indexPath, animated: true);
     }
 
-    override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
-        super.touchesEnded(touches, withEvent: event);
+    // MARK: UITableViewDataSource
 
-        self.currentTouchLocation = nil;
-    }
-
-    override func touchesMoved(touches: Set<NSObject>, withEvent event: UIEvent) {
-        super.touchesMoved(touches, withEvent: event);
-
-        let possibleTouch = touches.first as? UITouch;
-        if let touch = possibleTouch {
-            let yDisplacement: Int! = Int(touch.locationInView(self.view).y - currentTouchLocation!.y);
-            if Int(abs(yDisplacement)) > movementThreshold {
-                let movementDirection: Int! = (yDisplacement < 0) ? -1 : 1;
-                if ((movementDirection == 1 && self.thumbNumber < maxThumbNumber)
-                    || (movementDirection == -1 && self.thumbNumber > minThumbNumber)) {
-                    self.thumbNumber = self.thumbNumber + movementDirection;
-                }
-                let touchX = currentTouchLocation!.x;
-                let touchY = currentTouchLocation!.y + CGFloat(yDisplacement);
-                let newTouchLocation = CGPoint(x: touchX, y: touchY);
-                self.currentTouchLocation = newTouchLocation;
-
-                self.updateFileName();
-                self.leftThumbImageView.image = UIImage(named: self.thumbFileName);
-            }
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        var newCell = tableView.dequeueReusableCellWithIdentifier("FirstViewTableViewCell") as? FirstViewControllerTableViewCell;
+        if (newCell == nil) {
+            exit(1);
         }
+        newCell!.bigTextLabel!.text = sectionTitles[indexPath.row];
+        return newCell!;
     }
 
-    // MARK: Helpers
-
-    func updateFileName() {
-        var numberString = String(thumbNumber);
-        if (thumbNumber < 10) {
-            numberString = "0" + numberString;
-        }
-        thumbFileName = "Left Thumb " + numberString + ".jpg";
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return sectionTitles.count;
     }
+
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1;
+    }
+
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return floor(tableView.frameHeight / CGFloat(sectionTitles.count));
+    }
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
