@@ -17,7 +17,7 @@ enum MoodState: String {
     case Good = "Good"
     case Ok = "Ok"
     case Bad = "Bad"
-    case ReallyBad = "ReallyBad"
+    case ReallyBad = "Really Bad"
     case Depressed = "Depressed"
 }
 
@@ -176,17 +176,17 @@ class MoodInputViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         }
         thumbFileName = "Left Thumb " + numberString + ".jpg";
         switch thumbNumber {
-        case 1,2:
+        case 1:
             currentMoodState = MoodState.Euphoric;
-        case 3,4:
+        case 2,3:
             currentMoodState = MoodState.Great;
-        case 5,6:
+        case 4,5:
             currentMoodState = MoodState.Good;
-        case 7,8:
+        case 6,7,8:
             currentMoodState = MoodState.Ok;
-        case 9,10:
+        case 9,10,11:
             currentMoodState = MoodState.Bad;
-        case 11,12:
+        case 12,13,14:
             currentMoodState = MoodState.ReallyBad;
         default:
             currentMoodState = MoodState.Depressed
