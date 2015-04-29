@@ -117,7 +117,9 @@ class MoodInputViewController: UIViewController, UIPickerViewDelegate, UIPickerV
 
     override func touchesMoved(touches: Set<NSObject>, withEvent event: UIEvent) {
         super.touchesMoved(touches, withEvent: event);
-
+        if currentTouchLocation == nil {
+            return;
+        }
         let possibleTouch = touches.first as? UITouch;
         if let touch = possibleTouch {
             let yDisplacement: Int! = Int(touch.locationInView(self.view).y - currentTouchLocation!.y);
