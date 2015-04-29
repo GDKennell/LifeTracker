@@ -21,7 +21,17 @@ enum MoodState: String {
     case Depressed = "Depressed"
 }
 
-class MoodInputViewController: UIViewController {
+let numEnergyStates = 5;
+
+enum EnergyState: String {
+    case Manic = "Manic"
+    case High = "High"
+    case Average = "Average"
+    case Low = "Low"
+    case Lethargic = "Lethargic"
+}
+
+class MoodInputViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     // MARK: Properties
 
     @IBOutlet var leftThumbImageView: UIImageView!;
@@ -30,8 +40,11 @@ class MoodInputViewController: UIViewController {
     @IBOutlet var explanationLabel: UILabel!;
     @IBOutlet var recordButton: UIButton!;
 
+    @IBOutlet var energyLevelPicker: UIPickerView!;
+
     var thumbNumber: Int!, thumbFileName: String!;
     var currentMoodState: MoodState!
+    var currentEnergyState: EnergyState!
 
     var currentTouchLocation: CGPoint?;
 
@@ -70,6 +83,9 @@ class MoodInputViewController: UIViewController {
     override func viewWillAppear(animated: Bool) {
         self.recordButton.hidden = true;
         self.explanationLabel.hidden = false;
+        self.currentEnergyState = EnergyState.Average;
+        self.energyLevelPicker.selectRow(2, inComponent: 0, animated: false);
+        self.currentEnergyState = EnergyState.Average;
     }
 
     override func didReceiveMemoryWarning() {
@@ -120,6 +136,33 @@ class MoodInputViewController: UIViewController {
                 self.leftThumbImageView.image = UIImage(named: self.thumbFileName);
             }
         }
+    }
+
+
+    // MARK: UIPickerViewDelegate, UIPickerViewDataSource
+    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+        return 1;
+    }
+
+    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return numEnergyStates;
+    }
+
+    func pickerView(pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
+        var returnString: String?;
+        switch row {
+        case 0:
+            returnString = EnergyState.Manic.rawValue;
+        case 1:
+            returnString = EnergyState.High.rawValue;
+        case 2:
+            returnString = EnergyState.Average.rawValue;
+        case 3:
+            returnString = EnergyState.Low.rawValue;
+        default:
+            returnString = EnergyState.Lethargic.rawValue;
+        }
+        return NSAttributedString(string: returnString!);
     }
 
     // MARK: Helpers

@@ -161,12 +161,6 @@
                                     <constraint firstAttribute="bottom" secondItem="OpN-7F-DHx" secondAttribute="bottom" id="l5n-QO-9Ho"/>
                                 </constraints>
                             </view>
-                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EVr-l4-E5H" userLabel="Energy Level Picker">
-                                <rect key="frame" x="202" y="181" width="140" height="162"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="162" id="LWv-BS-D58"/>
-                                </constraints>
-                            </pickerView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Energy Level" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Bh-hJ-0Df">
                                 <rect key="frame" x="182" y="121" width="177" height="40"/>
                                 <constraints>
@@ -203,6 +197,16 @@
                                 <rect key="frame" x="95" y="109" width="65" height="80"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EVr-l4-E5H" userLabel="Energy Level Picker">
+                                <rect key="frame" x="202" y="181" width="140" height="162"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="162" id="LWv-BS-D58"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="dataSource" destination="6g9-fq-fMW" id="7As-dI-pyk"/>
+                                    <outlet property="delegate" destination="6g9-fq-fMW" id="xBa-bj-BOM"/>
+                                </connections>
+                            </pickerView>
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -250,6 +254,7 @@
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
+                        <outlet property="energyLevelPicker" destination="EVr-l4-E5H" id="Big-JP-AKT"/>
                         <outlet property="explanationLabel" destination="Kgv-Sg-p8d" id="b1g-FD-WNU"/>
                         <outlet property="leftThumbImageView" destination="X3j-x0-yfG" id="IHx-Ci-UUQ"/>
                         <outlet property="moodLevelLabel" destination="OpN-7F-DHx" id="7uT-9g-5ud"/>
