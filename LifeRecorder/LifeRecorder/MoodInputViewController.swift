@@ -9,12 +9,29 @@
 import Foundation
 import UIKit
 
+let NumMoodStates = 7;
+
+enum MoodState: String {
+    case Euphoric = "Euphoric"
+    case Great = "Great"
+    case Good = "Good"
+    case Ok = "Ok"
+    case Bad = "Bad"
+    case ReallyBad = "ReallyBad"
+    case Depressed = "Depressed"
+}
+
 class MoodInputViewController: UIViewController {
     // MARK: Properties
 
     @IBOutlet var leftThumbImageView: UIImageView!;
+    @IBOutlet var moodLevelLabel: UILabel!;
+
+    @IBOutlet var explanationLabel: UILabel!;
+    @IBOutlet var recordButton: UIButton!;
 
     var thumbNumber: Int!, thumbFileName: String!;
+    var currentMoodState: MoodState!
 
     var currentTouchLocation: CGPoint?;
 
@@ -35,9 +52,9 @@ class MoodInputViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        thumbNumber = 1;
+        thumbNumber = 7;
         updateFileName();
-        self.leftThumbImageView = UIImageView(frame: self.view.frame);
+
         if let theImage = UIImage(named: self.thumbFileName) {
             self.leftThumbImageView.image = theImage;
         }
@@ -48,6 +65,11 @@ class MoodInputViewController: UIViewController {
         self.view.addSubview(leftThumbImageView);
         leftThumbImageView.frame = self.view.frame;
         // Do any additional setup after loading the view, typically from a nib.
+    }
+
+    override func viewWillAppear(animated: Bool) {
+        self.recordButton.hidden = true;
+        self.explanationLabel.hidden = false;
     }
 
     override func didReceiveMemoryWarning() {
@@ -63,8 +85,11 @@ class MoodInputViewController: UIViewController {
         let possibleTouch = touches.first as? UITouch
 
         if let touch = possibleTouch {
-            // The user has tapped outside the text field, resign first responder, if necessary.
-            self.currentTouchLocation = touch.locationInView(self.view);
+            let touchLoc = touch.locationInView(self.leftThumbImageView);
+            if (touchLoc.x >= 0.0 && touchLoc.x <= leftThumbImageView.frameWidth
+                && touchLoc.y >= 0.0 && touchLoc.y <= leftThumbImageView.frameHeight) {
+                    self.currentTouchLocation = touch.locationInView(self.view);
+            }
         }
     }
 
@@ -105,5 +130,26 @@ class MoodInputViewController: UIViewController {
             numberString = "0" + numberString;
         }
         thumbFileName = "Left Thumb " + numberString + ".jpg";
+        switch thumbNumber {
+        case 1,2:
+            currentMoodState = MoodState.Euphoric;
+        case 3,4:
+            currentMoodState = MoodState.Great;
+        case 5,6:
+            currentMoodState = MoodState.Good;
+        case 7,8:
+            currentMoodState = MoodState.Ok;
+        case 9,10:
+            currentMoodState = MoodState.Bad;
+        case 11,12:
+            currentMoodState = MoodState.ReallyBad;
+        default:
+            currentMoodState = MoodState.Depressed
+        }
+
+        self.moodLevelLabel.text = currentMoodState.rawValue;
+
+        self.recordButton.hidden = false;
+        self.explanationLabel.hidden = true;
     }
 }
