@@ -51,6 +51,7 @@ class MoodInputViewController: UIViewController, UIPickerViewDelegate, UIPickerV
     let movementThreshold = 8;
     let minThumbNumber = 1;
     let maxThumbNumber = 15;
+
     // MARK: Lifetime
 
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {

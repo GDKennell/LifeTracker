@@ -17,6 +17,8 @@
 		CA3DE19B1AF002E2008356A8 /* UIView+Shortcuts.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA3DE19A1AF002E2008356A8 /* UIView+Shortcuts.swift */; };
 		CA3DE19D1AF003B8008356A8 /* MoodInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA3DE19C1AF003B8008356A8 /* MoodInputViewController.swift */; };
 		CA3DE19F1AF01272008356A8 /* FirstViewControllerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA3DE19E1AF01272008356A8 /* FirstViewControllerTableViewCell.swift */; };
+		CAD590591AF14FB2009CF14F /* SleepInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD590581AF14FB2009CF14F /* SleepInputViewController.swift */; };
+		CAD5905B1AF30E48009CF14F /* SleepInputClockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD5905A1AF30E48009CF14F /* SleepInputClockView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +46,8 @@
 		CA3DE19A1AF002E2008356A8 /* UIView+Shortcuts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Shortcuts.swift"; sourceTree = "<group>"; };
 		CA3DE19C1AF003B8008356A8 /* MoodInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoodInputViewController.swift; sourceTree = "<group>"; };
 		CA3DE19E1AF01272008356A8 /* FirstViewControllerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirstViewControllerTableViewCell.swift; sourceTree = "<group>"; };
+		CAD590581AF14FB2009CF14F /* SleepInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SleepInputViewController.swift; sourceTree = "<group>"; };
+		CAD5905A1AF30E48009CF14F /* SleepInputClockView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SleepInputClockView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +92,8 @@
 				CA3DE1781AEFE7F5008356A8 /* AppDelegate.swift */,
 				CA3DE17A1AEFE7F5008356A8 /* FirstViewController.swift */,
 				CA3DE19C1AF003B8008356A8 /* MoodInputViewController.swift */,
+				CAD590581AF14FB2009CF14F /* SleepInputViewController.swift */,
+				CAD5905A1AF30E48009CF14F /* SleepInputClockView.swift */,
 				CA3DE19E1AF01272008356A8 /* FirstViewControllerTableViewCell.swift */,
 				CA3DE19A1AF002E2008356A8 /* UIView+Shortcuts.swift */,
 				CA3DE17C1AEFE7F5008356A8 /* SecondViewController.swift */,
@@ -227,6 +233,8 @@
 				CA3DE19B1AF002E2008356A8 /* UIView+Shortcuts.swift in Sources */,
 				CA3DE17D1AEFE7F5008356A8 /* SecondViewController.swift in Sources */,
 				CA3DE1791AEFE7F5008356A8 /* AppDelegate.swift in Sources */,
+				CAD590591AF14FB2009CF14F /* SleepInputViewController.swift in Sources */,
+				CAD5905B1AF30E48009CF14F /* SleepInputClockView.swift in Sources */,
 				CA3DE19F1AF01272008356A8 /* FirstViewControllerTableViewCell.swift in Sources */,
 				CA3DE17B1AEFE7F5008356A8 /* FirstViewController.swift in Sources */,
 				CA3DE19D1AF003B8008356A8 /* MoodInputViewController.swift in Sources */,
@@ -427,6 +435,7 @@
 				CA3DE1961AEFE7F5008356A8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		CA3DE1971AEFE7F5008356A8 /* Build configuration list for PBXNativeTarget "LifeRecorderTests" */ = {
 			isa = XCConfigurationList;
@@ -435,6 +444,7 @@
 				CA3DE1991AEFE7F5008356A8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -51,7 +51,9 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         switch indexPath.row {
         case MoodRowIndex:
-            self .performSegueWithIdentifier("MoodIdentifierSegue", sender: self);
+            self.performSegueWithIdentifier("MoodIdentifierSegue", sender: self);
+        case SleepRowIndex:
+            self.performSegueWithIdentifier("SleepSegue", sender: self);
         default:
             UIAlertView(title: "Oops!", message: "I havnen't built that yet", delegate: nil, cancelButtonTitle: "Ok").show();
         }

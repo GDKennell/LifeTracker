@@ -62,17 +62,17 @@
                         <viewControllerLayoutGuide type="bottom" id="aN0-iz-Pfk"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="ndC-PI-AzV">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="672"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How's your day going?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zyo-dq-s8K">
-                                <rect key="frame" x="119" y="20" width="177" height="21"/>
+                                <rect key="frame" x="72" y="20" width="177" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="eer-Op-s6m">
-                                <rect key="frame" x="-4" y="61" width="422" height="562"/>
+                                <rect key="frame" x="-4" y="61" width="328" height="394"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="FirstViewTableViewCell" rowHeight="89" id="SPF-55-LjK" customClass="FirstViewControllerTableViewCell" customModule="LifeRecorder" customModuleProvider="target">
@@ -80,7 +80,7 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="SPF-55-LjK" id="FNz-fm-eUm">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mood" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D3J-kL-SKe">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Mood" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D3J-kL-SKe">
                                                     <rect key="frame" x="4" y="8" width="381" height="72"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="381" id="031-s2-Jd8"/>
@@ -121,10 +121,11 @@
                     <tabBarItem key="tabBarItem" title="First" image="first" id="acW-dT-cKf"/>
                     <navigationItem key="navigationItem" id="hTq-eH-2ej"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="tableView" destination="eer-Op-s6m" id="AIE-EQ-rLD"/>
                         <segue destination="6g9-fq-fMW" kind="show" identifier="MoodIdentifierSegue" id="8Tg-Uw-aG4"/>
+                        <segue destination="Mjv-pN-bIw" kind="show" identifier="SleepSegue" id="ZHU-i7-1r1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
@@ -250,11 +251,11 @@
                             <mask key="constraints">
                                 <exclude reference="IYh-sm-MvX"/>
                                 <exclude reference="iWw-Lv-SYX"/>
-                                <exclude reference="jWs-fK-UmR"/>
                                 <exclude reference="1if-i7-fpc"/>
                                 <exclude reference="ZRY-Qe-5bm"/>
                                 <exclude reference="aDv-nn-Bcl"/>
                                 <exclude reference="g7h-JA-cZf"/>
+                                <exclude reference="jWs-fK-UmR"/>
                                 <exclude reference="TpD-Al-xaQ"/>
                                 <exclude reference="E9N-Wk-C9o"/>
                             </mask>
@@ -272,6 +273,37 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZgI-BX-Myu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1622" y="-1494"/>
+        </scene>
+        <!--Sleep Input View Controller-->
+        <scene sceneID="YmU-kk-Doh">
+            <objects>
+                <viewController id="Mjv-pN-bIw" customClass="SleepInputViewController" customModule="LifeRecorder" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Af5-qw-qWm"/>
+                        <viewControllerLayoutGuide type="bottom" id="Wdb-Kq-TQq"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="kMZ-pv-oQc">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sleep" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jdD-mJ-xos">
+                                <rect key="frame" x="138" y="242" width="44" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="jdD-mJ-xos" secondAttribute="centerX" id="AZI-fa-iDV"/>
+                            <constraint firstAttribute="centerY" secondItem="jdD-mJ-xos" secondAttribute="centerY" id="aax-lt-Bvq"/>
+                        </constraints>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Gnl-vk-Kjb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1622" y="-800"/>
         </scene>
         <!--Now-->
         <scene sceneID="5Mq-VK-aR8">
