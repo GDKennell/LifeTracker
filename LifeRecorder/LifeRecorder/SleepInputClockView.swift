@@ -43,8 +43,6 @@ class SleepInputMarkerView: UIView {
 
     // MARK: Touch Handling
     override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
-        self.moveToAngle(CGFloat(100.0 * (M_PI / 180.0)));
-        return;
         let possibleTouch = touches.first as? UITouch
         let touchLocation = possibleTouch?.locationInView(self)
         let touch = possibleTouch
@@ -57,10 +55,15 @@ class SleepInputMarkerView: UIView {
         let possibleTouch = touches.first as? UITouch
         let touchLocation = possibleTouch?.locationInView(self.superview)
         if (possibleTouch != nil) && possibleTouch == draggingTouch {
-            let hypotenuse = distance(clockCenter!, touchLocation!)
+            var hypotenuse = distance(clockCenter!, touchLocation!)
             let vertical = clockCenter!.y - touchLocation!.y;
 
-            let touchAngle = asin(vertical / hypotenuse) + CGFloat(M_PI / 2.0)
+            var touchAngle: CGFloat! = asin(vertical / hypotenuse) + CGFloat(M_PI / 2.0)
+            if (touchLocation!.x > clockCenter!.x) {
+                let angleDifference: CGFloat! = CGFloat(M_PI) - touchAngle;
+                touchAngle = touchAngle + (2.0 * angleDifference);
+            }
+
             NSLog("vertical (%lf) / hypotenuse (%lf) = %lf", vertical, hypotenuse, vertical / hypotenuse);
             self.moveToAngle(touchAngle);
         }
