@@ -42,5 +42,17 @@ extension UIView {
             self.frame = CGRectMake(self.frameX, self.frameY, newWidth, self.frameHeight);
         }
     }
+    var size: CGSize {
+        get {
+            return self.frame.size;
+        }
+        set (newSize) {
+            self.frame = CGRectMake(self.frameX, self.frameY, newSize.width, newSize.height);
+        }
+    }
 
+    func containsPoint(point: CGPoint) -> Bool {
+        return (point.x >= 0 && point.x <= self.frameWidth
+            && point.y >= 0 && point.y <= self.frameHeight);
+    }
 }
