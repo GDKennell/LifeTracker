@@ -67,7 +67,7 @@ class SleepInputMarkerView: UIView {
 
             self.moveToAngle(touchAngle);
             let clockView = self.superview as! SleepInputClockView
-            clockView.updateViews()
+            clockView.setNeedsDisplay()
         }
     }
 
@@ -115,6 +115,8 @@ class SleepInputSleepArcView: UIView {
     weak var clockView: SleepInputClockView?;
 
     var startAngle: CGFloat?, endAngle: CGFloat?;
+    var arcLayer: CGLayerRef?;
+    var arcLayerContext: CGContextRef?;
     var drawingContext: CGContextRef?;
 
     // MARK: Initializers
@@ -138,15 +140,24 @@ class SleepInputSleepArcView: UIView {
         self.drawArc();
     }
 
+    var debugFirstTime = true;
     // MARK: Helpers
     func drawArc() {
-        if (self.drawingContext == nil) {
+        if (self.arcLayer == nil) {
             self.drawingContext = UIGraphicsGetCurrentContext();
+            assert(self.drawingContext != nil, "wtf");
+
+            self.arcLayer = CGLayerCreateWithContext(self.drawingContext, self.frame.size, nil);
+            self.arcLayerContext = CGLayerGetContext(self.arcLayer!);
         }
 
         if (self.startAngle == nil || self.endAngle == nil) {
             return;
         }
+
+        CGContextClearRect(self.arcLayerContext, self.frame);
+        CGContextSetFillColorWithColor(self.arcLayerContext, UIColor.clearColor().CGColor);
+        CGContextFillRect(self.arcLayerContext, self.frame);
 
         var sleepArcPath = CGPathCreateMutable();
         let sleepArcStartPoint = clockView!.markers.first.center;
@@ -155,13 +166,13 @@ class SleepInputSleepArcView: UIView {
         CGPathAddArc(sleepArcPath, nil, clockView!.clockCenter!.x, clockView!.clockCenter!.y, clockView!.clockRadius!, self.startAngle!, self.endAngle!, true);
         let strokedPath = CGPathCreateCopyByStrokingPath(sleepArcPath, nil, sleepArcLineWidth, kCGLineCapButt, kCGLineJoinMiter, CGFloat(10.0))
 
-        assert(drawingContext != nil, "wtf");
-        CGContextAddPath(drawingContext, strokedPath);
+        CGContextAddPath(self.arcLayerContext!, strokedPath);
 
-        CGContextSetStrokeColorWithColor(drawingContext, UIColor.blueColor().CGColor)
-        CGContextSetLineWidth(drawingContext, sleepArcLineWidth)
+        CGContextSetStrokeColorWithColor(self.arcLayerContext!, UIColor.blueColor().CGColor)
+        CGContextSetLineWidth(self.arcLayerContext!, sleepArcLineWidth)
+        CGContextStrokePath(self.arcLayerContext!);
 
-        CGContextStrokePath(drawingContext);
+        CGContextDrawLayerInRect(self.drawingContext, self.frame, self.arcLayer);
 
         NSLog("Drawing sleep arc from %lf to %lf", self.startAngle! * CGFloat(180.0 / M_PI),
             self.endAngle! * CGFloat(180.0 / M_PI))
@@ -186,28 +197,35 @@ class SleepInputClockView: UIView {
     var sleepArc: SleepInputSleepArcView! = SleepInputSleepArcView();
 
     // MARK: UIView methods
+    var debugInit = true;
     override func drawRect(rect: CGRect) {
-        NSLog("clock: drawRect");
-        super.drawRect(rect)
-        if (self.drawingContext == nil) {
-            self.drawingContext = UIGraphicsGetCurrentContext();
+        if (debugInit) {
+            debugInit = false;
+            NSLog("clock: drawRect");
+            super.drawRect(rect)
+            if (self.drawingContext == nil) {
+                self.drawingContext = UIGraphicsGetCurrentContext();
+            }
+            clockCenter = self.center
+
+            clockRadius = floor(self.frameWidth / 3.0);
+
+            CGContextClearRect(drawingContext, self.frame);
+            CGContextSetFillColorWithColor(drawingContext!, UIColor.whiteColor().CGColor);
+            CGContextFillRect(drawingContext, self.frame);
+
+            self.addSubview(self.sleepArc);
+            self.sleepArc.setUpView();
+
+            self.drawMarkers();
         }
-        clockCenter = self.center
-
-        clockRadius = floor(self.frameWidth / 3.0);
-
-        CGContextClearRect(drawingContext, self.frame);
-        CGContextSetFillColorWithColor(drawingContext!, UIColor.whiteColor().CGColor);
-        CGContextFillRect(drawingContext, self.frame);
         self.drawClock();
-        self.drawMarkers();
+        self.drawSleepArc();
     }
 
     // MARK: Helpers
     func updateViews() {
 
-//        self.drawClock();
-//        self.drawSleepArc();
     }
 
     func drawClock() {
@@ -249,13 +267,11 @@ class SleepInputClockView: UIView {
         self.markers.first.setUpView();
         self.markers.second.setUpView();
 
-        self.markers.first.moveToAngle(CGFloat(4.50));
+        self.markers.first.moveToAngle(CGFloat(0.50));
         self.markers.second.moveToAngle(CGFloat(2.50));
     }
 
     func drawSleepArc() {
-        self.addSubview(self.sleepArc);
-        sleepArc.setUpView();
         sleepArc.drawArcFromAngle(self.markers.first.currentAngle! + CGFloat(M_PI_2),
                         toAngle: self.markers.second.currentAngle! + CGFloat(M_PI_2));
     }
