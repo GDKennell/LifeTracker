@@ -83,14 +83,10 @@ class SleepInputMarkerView: UIView {
         self.currentAngle = angle;
         self.timeLabel.moveToAngle(angle);
 
-        NSLog("moveToAngle: %lf", angle * (180 / CGFloat(M_PI)));
         let halfAngle = (angle < CGFloat(M_PI)) ? angle : angle - (CGFloat(M_PI));
-        NSLog("halfAngle: %lf", halfAngle * (180 / CGFloat(M_PI)));
         let circleRatio =  halfAngle / CGFloat(M_PI);
-        NSLog("circleRatio: %lf", circleRatio);
         var hourValue = Int(floor(12.0 * circleRatio));
         let hourRemainder = 12.0 * circleRatio - CGFloat(hourValue);
-        NSLog("hourRemainder: %lf", hourRemainder);
         let minuteValue = Int(floor(hourRemainder * 60.0));
         if (hourValue == 0) {
             hourValue = 12;
@@ -179,7 +175,7 @@ class SleepInputSleepArcView: UIView {
         let sleepArcStartPoint = clockView!.markers.first.center;
         CGPathMoveToPoint(sleepArcPath, nil, sleepArcStartPoint.x, sleepArcStartPoint.y);
 
-        CGPathAddArc(sleepArcPath, nil, clockView!.clockCenter!.x, clockView!.clockCenter!.y, clockView!.clockRadius!, self.startAngle!, self.endAngle!, true);
+        CGPathAddArc(sleepArcPath, nil, clockView!.clockCenter!.x, clockView!.clockCenter!.y, clockView!.clockRadius!, self.startAngle!, self.endAngle!, false);
         let strokedPath = CGPathCreateCopyByStrokingPath(sleepArcPath, nil, sleepArcLineWidth, kCGLineCapButt, kCGLineJoinMiter, CGFloat(10.0))
 
         CGContextAddPath(self.arcLayerContext!, strokedPath);
@@ -286,7 +282,7 @@ class SleepInputClockView: UIView {
             }
             clockCenter = self.center
 
-            clockRadius = floor(self.frameWidth / 3.0);
+            clockRadius = floor(self.frameWidth / 4.0);
 
             CGContextClearRect(drawingContext, self.frame);
             CGContextSetFillColorWithColor(drawingContext!, UIColor.whiteColor().CGColor);
@@ -371,8 +367,8 @@ class SleepInputClockView: UIView {
         self.markers.first.setUpView();
         self.markers.second.setUpView();
 
-        self.markers.first.moveToAngle(CGFloat(0.50));
-        self.markers.second.moveToAngle(CGFloat(2.50));
+        self.markers.first.moveToAngle(165.0 * (CGFloat(M_PI) / 180.0));
+        self.markers.second.moveToAngle(301 * (CGFloat(M_PI) / 180.0));
     }
 
     func drawSleepArc() {
