@@ -249,6 +249,22 @@ class SleepInputClockView: UIView {
     var timeRange: (start: NSDate, end: NSDate)?
 
     // MARK: UIView methods
+    override func hitTest(point: CGPoint, withEvent event: UIEvent?) -> UIView? {
+        let firstMarkerDistance = distance(point, self.markers.first.center);
+        let secondMarkerDistance = distance(point, self.markers.second.center);
+        let markerTargetRadius = 1.5 * self.markers.first.markerRadius;
+
+        if (firstMarkerDistance < markerTargetRadius && firstMarkerDistance < secondMarkerDistance) {
+            return self.markers.first;
+        }
+        else if (secondMarkerDistance < markerTargetRadius) {
+            return self.markers.second;
+        }
+        else {
+            return nil;
+        }
+    }
+
     var initialization = true;
     override func drawRect(rect: CGRect) {
         if (initialization) {
