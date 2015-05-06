@@ -179,6 +179,48 @@ class SleepInputSleepArcView: UIView {
     }
 }
 
+//MARK: Time Label View
+class SleepInputTimeLabelView: UIView {
+    // MARK: Properties
+    var timeLabel = UILabel();
+    var displayDate: NSDate?;
+    weak var clockView: SleepInputClockView?;
+
+    func setUpView() {
+        self.size = CGSize(width: 100.0, height: 20.0);
+        self.backgroundColor = UIColor.grayColor();
+        self.addSubview(timeLabel);
+        self.timeLabel.frame = self.frame;
+        clockView = (self.superview as! SleepInputClockView);
+    }
+
+    func displayDate(date: NSDate!) {
+        let formatter = NSDateFormatter();
+        formatter.dateFormat = "hh:mm a";
+        timeLabel.text = formatter.stringFromDate(date);
+    }
+
+    func moveToAngle(angle: CGFloat!) {
+        var pointOnClock = CGPoint();
+        pointOnClock.x =  (-sin(angle) * self.clockView!.clockRadius!) + self.clockView!.clockCenter!.x;
+        pointOnClock.y = (cos(angle) * self.clockView!.clockRadius!) + self.clockView!.clockCenter!.y;
+
+        if (pointOnClock.x < self.clockView!.clockCenter!.x) {
+            self.frameX = pointOnClock.x - self.frameWidth;
+        }
+        else {
+            self.frameX = pointOnClock.x;
+        }
+
+        if (pointOnClock.y < self.clockView!.clockCenter!.y) {
+            self.frameY = pointOnClock.y - self.frameHeight;
+        }
+        else {
+            self.frameY = pointOnClock.y;
+        }
+    }
+}
+
 //MARK: Clock View
 class SleepInputClockView: UIView {
     // MARK: Properties
@@ -195,12 +237,22 @@ class SleepInputClockView: UIView {
     // Subviews
     var markers: (first: SleepInputMarkerView!, second: SleepInputMarkerView!) = (SleepInputMarkerView(), SleepInputMarkerView());
     var sleepArc: SleepInputSleepArcView! = SleepInputSleepArcView();
+    var timeLabels: (top: UILabel!,
+                     right: UILabel!,
+                     bottom: UILabel!,
+                     left: UILabel!) = (UILabel(),
+                                        UILabel(),
+                                        UILabel(),
+                                        UILabel());
+
+    // Data
+    var timeRange: (start: NSDate, end: NSDate)?
 
     // MARK: UIView methods
-    var debugInit = true;
+    var initialization = true;
     override func drawRect(rect: CGRect) {
-        if (debugInit) {
-            debugInit = false;
+        if (initialization) {
+            initialization = false;
             NSLog("clock: drawRect");
             super.drawRect(rect)
             if (self.drawingContext == nil) {
@@ -221,11 +273,6 @@ class SleepInputClockView: UIView {
         }
         self.drawClock();
         self.drawSleepArc();
-    }
-
-    // MARK: Helpers
-    func updateViews() {
-
     }
 
     func drawClock() {
@@ -250,11 +297,42 @@ class SleepInputClockView: UIView {
             CGContextSetLineWidth(clockLayerContext, clockLineWidth)
 
             CGContextStrokePath(clockLayerContext);
+
+            self.drawTimeLabels();
+
         }
 
         // CGContextStrokePath
         assert(drawingContext != nil, "wtf");
         CGContextDrawLayerInRect(drawingContext, self.frame, clockLayer!)
+    }
+
+    func drawTimeLabels() {
+        let timeLabelSize = CGSize(width: 50, height: 20);
+        let timeLabelBuffer: CGFloat! = 14.0;
+        self.timeLabels.bottom.frame = CGRectMake(clockCenter!.x - timeLabelSize.width / 2.0, clockCenter!.y + clockRadius! - timeLabelSize.height - timeLabelBuffer,
+            timeLabelSize.width, timeLabelSize.height);
+        self.timeLabels.top.frame = CGRectMake(clockCenter!.x - timeLabelSize.width / 2.0, clockCenter!.y - clockRadius! + timeLabelBuffer,
+            timeLabelSize.width, timeLabelSize.height);
+        self.timeLabels.left.frame = CGRectMake(clockCenter!.x - clockRadius! + timeLabelBuffer, clockCenter!.y - timeLabelSize.height / 2.0,
+            timeLabelSize.width, timeLabelSize.height);
+        self.timeLabels.right.frame = CGRectMake(clockCenter!.x + clockRadius! - timeLabelSize.width - timeLabelBuffer, clockCenter!.y - timeLabelSize.height / 2.0,
+            timeLabelSize.width, timeLabelSize.height);
+
+        self.timeLabels.bottom.textAlignment = NSTextAlignment.Center;
+        self.timeLabels.top.textAlignment = NSTextAlignment.Center;
+        self.timeLabels.left.textAlignment = NSTextAlignment.Left;
+        self.timeLabels.right.textAlignment = NSTextAlignment.Right;
+
+        self.addSubview(self.timeLabels.bottom);
+        self.addSubview(self.timeLabels.top);
+        self.addSubview(self.timeLabels.right);
+        self.addSubview(self.timeLabels.left);
+
+        self.timeLabels.bottom.text = "12 PM";
+        self.timeLabels.left.text = "6 PM";
+        self.timeLabels.top.text = "12 AM";
+        self.timeLabels.right.text = "6 AM";
     }
 
     func drawMarkers() {
