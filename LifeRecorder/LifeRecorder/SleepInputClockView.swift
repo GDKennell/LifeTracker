@@ -24,6 +24,7 @@ class SleepInputMarkerView: UIView {
     let markerLineWidth: CGFloat! = 2.0;
     let markerRadius: CGFloat! = 10.0;
 
+    var timeLabel = SleepInputTimeLabelView();
     // MARK: Initializers
 
     // Should be called after frame is set and view is added to superview
@@ -31,11 +32,12 @@ class SleepInputMarkerView: UIView {
         let clockView = self.superview as! SleepInputClockView
         clockCenter = clockView.clockCenter
         clockRadius = clockView.clockRadius
-        self.size = CGSizeMake(100, 100);
-        self.frameX = 150;
-        self.frameY = 150;
+        self.size = CGSizeMake(150, 150);
+
         currentAngle = 0.0;
         self.userInteractionEnabled = true
+        self.addSubview(self.timeLabel);
+        self.timeLabel.setUpView();
     }
 
     override func drawRect(rect: CGRect) {
@@ -79,7 +81,21 @@ class SleepInputMarkerView: UIView {
         self.frameX =  (-sin(angle) * clockRadius!) + clockCenter!.x - (self.frameWidth / 2.0);
         self.frameY = (cos(angle) * clockRadius!) + clockCenter!.y - (self.frameHeight / 2.0);
         self.currentAngle = angle;
-        let clockView = self.superview as! SleepInputClockView;
+        self.timeLabel.moveToAngle(angle);
+
+        NSLog("moveToAngle: %lf", angle * (180 / CGFloat(M_PI)));
+        let halfAngle = (angle < CGFloat(M_PI)) ? angle : angle - (CGFloat(M_PI));
+        NSLog("halfAngle: %lf", halfAngle * (180 / CGFloat(M_PI)));
+        let circleRatio =  halfAngle / CGFloat(M_PI);
+        NSLog("circleRatio: %lf", circleRatio);
+        var hourValue = Int(floor(12.0 * circleRatio));
+        let hourRemainder = 12.0 * circleRatio - CGFloat(hourValue);
+        NSLog("hourRemainder: %lf", hourRemainder);
+        let minuteValue = Int(floor(hourRemainder * 60.0));
+        if (hourValue == 0) {
+            hourValue = 12;
+        }
+        self.timeLabel.displayTime(hourValue, minutes: minuteValue, am: angle >= CGFloat(M_PI));
     }
 
     func drawMarker() {
@@ -173,9 +189,6 @@ class SleepInputSleepArcView: UIView {
         CGContextStrokePath(self.arcLayerContext!);
 
         CGContextDrawLayerInRect(self.drawingContext, self.frame, self.arcLayer);
-
-        NSLog("Drawing sleep arc from %lf to %lf", self.startAngle! * CGFloat(180.0 / M_PI),
-            self.endAngle! * CGFloat(180.0 / M_PI))
     }
 }
 
@@ -185,19 +198,22 @@ class SleepInputTimeLabelView: UIView {
     var timeLabel = UILabel();
     var displayDate: NSDate?;
     weak var clockView: SleepInputClockView?;
+    weak var markerView: SleepInputMarkerView?;
 
     func setUpView() {
-        self.size = CGSize(width: 100.0, height: 20.0);
+        self.size = CGSize(width: 80.0, height: 20.0);
         self.backgroundColor = UIColor.grayColor();
         self.addSubview(timeLabel);
         self.timeLabel.frame = self.frame;
-        clockView = (self.superview as! SleepInputClockView);
+        self.timeLabel.textAlignment = NSTextAlignment.Center;
+        clockView = (self.superview!.superview as! SleepInputClockView);
+        markerView = (self.superview as! SleepInputMarkerView);
     }
 
-    func displayDate(date: NSDate!) {
-        let formatter = NSDateFormatter();
-        formatter.dateFormat = "hh:mm a";
-        timeLabel.text = formatter.stringFromDate(date);
+    func displayTime(hours: Int, minutes: Int, am: Bool) {
+        let amPmString = am ? "AM" : "PM";
+        let minutesString = minutes < 10 ? "0" + String(minutes) : String(minutes);
+        timeLabel.text = String(hours) + ":" + minutesString + amPmString;
     }
 
     func moveToAngle(angle: CGFloat!) {
@@ -205,19 +221,13 @@ class SleepInputTimeLabelView: UIView {
         pointOnClock.x =  (-sin(angle) * self.clockView!.clockRadius!) + self.clockView!.clockCenter!.x;
         pointOnClock.y = (cos(angle) * self.clockView!.clockRadius!) + self.clockView!.clockCenter!.y;
 
-        if (pointOnClock.x < self.clockView!.clockCenter!.x) {
-            self.frameX = pointOnClock.x - self.frameWidth;
-        }
-        else {
-            self.frameX = pointOnClock.x;
-        }
+        let xRatio = (pointOnClock.x - self.clockView!.clockCenter!.x) / self.clockView!.clockRadius!;
+        let yRatio = (pointOnClock.y - self.clockView!.clockCenter!.y) / self.clockView!.clockRadius!;
+        NSLog("x ratio: %lf, y ratio: %lf", xRatio, yRatio);
 
-        if (pointOnClock.y < self.clockView!.clockCenter!.y) {
-            self.frameY = pointOnClock.y - self.frameHeight;
-        }
-        else {
-            self.frameY = pointOnClock.y;
-        }
+        let markerCenter = CGPoint(x: markerView!.frameWidth / 2.0, y: markerView!.frameHeight / 2.0);
+        self.frameX = markerCenter.x + (xRatio * self.frameWidth / 2.0) - self.frameWidth / 2.0 + (xRatio * markerView!.markerRadius);
+        self.frameY = markerCenter.y + (yRatio * self.frameHeight / 2.0) - self.frameHeight / 2.0 + (yRatio * markerView!.markerRadius);
     }
 }
 
