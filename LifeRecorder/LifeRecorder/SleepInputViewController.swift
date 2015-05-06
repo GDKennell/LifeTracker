@@ -11,7 +11,11 @@ import UIKit
 
 class SleepInputViewController : UIViewController {
     // MARK: Properties
-    var clockView: SleepInputClockView?;
+    @IBOutlet var clockView: SleepInputClockView!;
+    @IBOutlet var dateLabel: UILabel!;
+    @IBOutlet var dateBackButton: UIButton!;
+    @IBOutlet var dateForwardButton: UIButton!;
+
 
     // MARK: Lifetime
 
@@ -28,8 +32,15 @@ class SleepInputViewController : UIViewController {
     override func viewDidLoad() {
         clockView = SleepInputClockView();
         self.view.addSubview(clockView!);
-        clockView!.frame = CGRectMake(0, 0, self.view.frameWidth, self.view.frameHeight);
+        let topSpace: CGFloat! = 150.0;
+        clockView!.frame = CGRectMake(0, topSpace, self.view.frameWidth, self.view.frameHeight - topSpace);
         clockView!.backgroundColor = UIColor.whiteColor();
+        clockView!.setNeedsDisplay();
+
+        self.dateBackButton.setImage(UIImage(named: "back_button_black"), forState: UIControlState.Normal);
+        self.dateBackButton.setImage(UIImage(named: "back_button_grey"), forState: UIControlState.Highlighted);
+        self.dateForwardButton.setImage(UIImage(named: "forward_button_black"), forState: UIControlState.Normal);
+        self.dateForwardButton.setImage(UIImage(named: "forward_button_grey"), forState: UIControlState.Highlighted);
     }
 
     override func viewWillAppear(animated: Bool) {

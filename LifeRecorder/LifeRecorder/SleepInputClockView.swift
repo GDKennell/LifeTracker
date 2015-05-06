@@ -219,7 +219,6 @@ class SleepInputTimeLabelView: UIView {
 
         let xRatio = (pointOnClock.x - self.clockView!.clockCenter!.x) / self.clockView!.clockRadius!;
         let yRatio = (pointOnClock.y - self.clockView!.clockCenter!.y) / self.clockView!.clockRadius!;
-        NSLog("x ratio: %lf, y ratio: %lf", xRatio, yRatio);
 
         let markerCenter = CGPoint(x: markerView!.frameWidth / 2.0, y: markerView!.frameHeight / 2.0);
         self.frameX = markerCenter.x + (xRatio * self.frameWidth / 2.0) - self.frameWidth / 2.0 + (xRatio * markerView!.markerRadius);
@@ -273,16 +272,16 @@ class SleepInputClockView: UIView {
 
     var initialization = true;
     override func drawRect(rect: CGRect) {
+        NSLog("clock: drawRect: %@", NSStringFromCGRect(rect));
+        NSLog("clock frame: %@", NSStringFromCGRect(self.frame));
         if (initialization) {
             initialization = false;
-            NSLog("clock: drawRect");
             super.drawRect(rect)
             if (self.drawingContext == nil) {
                 self.drawingContext = UIGraphicsGetCurrentContext();
             }
-            clockCenter = self.center
-
             clockRadius = floor(self.frameWidth / 4.0);
+            clockCenter = CGPoint(x: (self.frameWidth / 2.0), y: clockRadius! + 50.0)
 
             CGContextClearRect(drawingContext, self.frame);
             CGContextSetFillColorWithColor(drawingContext!, UIColor.whiteColor().CGColor);
@@ -308,7 +307,7 @@ class SleepInputClockView: UIView {
             CGPathMoveToPoint(clockPath, nil, startPoint.x, startPoint.y);
 
 //        NSLog("drawClock: addArc(center: %@, radius: %lf", NSStringFromCGPoint(self.center), clockRadius!);
-            CGPathAddArc(clockPath, nil, self.center.x, self.center.y, clockRadius!, 0.0 as CGFloat, CGFloat(2.0 * M_PI), true);
+            CGPathAddArc(clockPath, nil, clockCenter!.x, clockCenter!.y, clockRadius!, 0.0 as CGFloat, CGFloat(2.0 * M_PI), true);
             let strokedPath = CGPathCreateCopyByStrokingPath(clockPath, nil, clockLineWidth, kCGLineCapButt, kCGLineJoinMiter, CGFloat(10.0));
 
             let clockLayerContext = CGLayerGetContext(clockLayer);
@@ -326,7 +325,7 @@ class SleepInputClockView: UIView {
 
         // CGContextStrokePath
         assert(drawingContext != nil, "wtf");
-        CGContextDrawLayerInRect(drawingContext, self.frame, clockLayer!)
+        CGContextDrawLayerInRect(drawingContext, CGRectMake(0, 0, self.frameWidth, self.frameHeight), clockLayer!)
     }
 
     func drawTimeLabels() {
