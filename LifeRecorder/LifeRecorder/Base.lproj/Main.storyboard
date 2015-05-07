@@ -80,22 +80,35 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="SPF-55-LjK" id="FNz-fm-eUm">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Mood" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D3J-kL-SKe">
-                                                    <rect key="frame" x="4" y="8" width="381" height="72"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mood" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D3J-kL-SKe">
+                                                    <rect key="frame" x="8" y="8" width="279" height="72"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="381" id="031-s2-Jd8"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="31"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
+                                                    <variation key="default">
+                                                        <mask key="constraints">
+                                                            <exclude reference="031-s2-Jd8"/>
+                                                        </mask>
+                                                    </variation>
                                                 </label>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="D3J-kL-SKe" firstAttribute="leading" secondItem="FNz-fm-eUm" secondAttribute="leadingMargin" id="533-dZ-s5V"/>
                                                 <constraint firstItem="D3J-kL-SKe" firstAttribute="top" secondItem="FNz-fm-eUm" secondAttribute="topMargin" id="8Yz-F0-4LD"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="D3J-kL-SKe" secondAttribute="bottom" id="K7B-6r-zdG"/>
-                                                <constraint firstAttribute="centerX" secondItem="D3J-kL-SKe" secondAttribute="centerX" constant="0.5" id="N7q-RR-xf1"/>
+                                                <constraint firstAttribute="centerX" secondItem="D3J-kL-SKe" secondAttribute="centerX" constant="-47" id="N7q-RR-xf1"/>
                                                 <constraint firstAttribute="centerY" secondItem="D3J-kL-SKe" secondAttribute="centerY" id="pGC-Sa-fNd"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="D3J-kL-SKe" secondAttribute="trailing" id="zha-Fa-mVe"/>
                                             </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="N7q-RR-xf1"/>
+                                                    <exclude reference="pGC-Sa-fNd"/>
+                                                </mask>
+                                            </variation>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="bigTextLabel" destination="D3J-kL-SKe" id="hzV-tf-EPz"/>

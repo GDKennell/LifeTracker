@@ -35,10 +35,6 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
 
     override func viewDidLoad() {
         super.viewDidLoad();
-//        var transition = CATransition();
-//        transition.type = kCATransitionPush;
-//        transition.subtype = kCATransitionFromLeft;
-//        self.view.windo.layer.addAnimation(transition, forKey: nil);
     }
 
     override func didReceiveMemoryWarning() {

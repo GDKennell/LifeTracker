@@ -9,27 +9,6 @@
 import Foundation
 import UIKit
 
-let NumMoodStates = 7;
-
-enum MoodState: String {
-    case Euphoric = "Euphoric"
-    case Great = "Great"
-    case Good = "Good"
-    case Ok = "Ok"
-    case Bad = "Bad"
-    case ReallyBad = "Really Bad"
-    case Depressed = "Depressed"
-}
-
-let numEnergyStates = 5;
-
-enum EnergyState: String {
-    case Manic = "Manic"
-    case High = "High"
-    case Average = "Average"
-    case Low = "Low"
-    case Lethargic = "Lethargic"
-}
 
 class MoodInputViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     // MARK: Properties
@@ -43,8 +22,8 @@ class MoodInputViewController: UIViewController, UIPickerViewDelegate, UIPickerV
     @IBOutlet var energyLevelPicker: UIPickerView!;
 
     var thumbNumber: Int!, thumbFileName: String!;
-    var currentMoodState: MoodState!
-    var currentEnergyState: EnergyState!
+    var currentMood: Mood!
+    var currentEnergyLevel: EnergyLevel!
 
     var currentTouchLocation: CGPoint?;
 
@@ -84,9 +63,9 @@ class MoodInputViewController: UIViewController, UIPickerViewDelegate, UIPickerV
     override func viewWillAppear(animated: Bool) {
         self.recordButton.hidden = true;
         self.explanationLabel.hidden = false;
-        self.currentEnergyState = EnergyState.Average;
-        self.energyLevelPicker.selectRow(2, inComponent: 0, animated: false);
-        self.currentEnergyState = EnergyState.Average;
+
+        self.currentEnergyLevel = .Average;
+        self.energyLevelPicker.selectRow(self.currentEnergyLevel.rawValue, inComponent: 0, animated: false);
     }
 
     override func didReceiveMemoryWarning() {
@@ -148,24 +127,13 @@ class MoodInputViewController: UIViewController, UIPickerViewDelegate, UIPickerV
     }
 
     func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return numEnergyStates;
+        return EnergyLevel.count;
     }
 
     func pickerView(pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
-        var returnString: String?;
-        switch row {
-        case 0:
-            returnString = EnergyState.Manic.rawValue;
-        case 1:
-            returnString = EnergyState.High.rawValue;
-        case 2:
-            returnString = EnergyState.Average.rawValue;
-        case 3:
-            returnString = EnergyState.Low.rawValue;
-        default:
-            returnString = EnergyState.Lethargic.rawValue;
-        }
-        return NSAttributedString(string: returnString!);
+        var returnString = EnergyLevelStrings[row];
+
+        return NSAttributedString(string: returnString);
     }
 
     // MARK: Helpers
@@ -178,22 +146,22 @@ class MoodInputViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         thumbFileName = "Left Thumb " + numberString + ".jpg";
         switch thumbNumber {
         case 1:
-            currentMoodState = MoodState.Euphoric;
+            currentMood = .Euphoric;
         case 2,3:
-            currentMoodState = MoodState.Great;
+            currentMood = .Great;
         case 4,5:
-            currentMoodState = MoodState.Good;
+            currentMood = .Good;
         case 6,7,8:
-            currentMoodState = MoodState.Ok;
+            currentMood = .Ok;
         case 9,10,11:
-            currentMoodState = MoodState.Bad;
+            currentMood = .Bad;
         case 12,13,14:
-            currentMoodState = MoodState.ReallyBad;
+            currentMood = .ReallyBad;
         default:
-            currentMoodState = MoodState.Depressed
+            currentMood = .Depressed
         }
 
-        self.moodLevelLabel.text = currentMoodState.rawValue;
+        self.moodLevelLabel.text = MoodStrings[currentMood.rawValue];
 
         self.recordButton.hidden = false;
         self.explanationLabel.hidden = true;
