@@ -13,33 +13,27 @@ import UIKit
 class MoodInputViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     // MARK: Properties
 
+    // MARK: IBOutlets
     @IBOutlet var leftThumbImageView: UIImageView!;
     @IBOutlet var moodLevelLabel: UILabel!;
 
     @IBOutlet var explanationLabel: UILabel!;
     @IBOutlet var recordButton: UIButton!;
+    @IBOutlet var moodRecordedLabel: UILabel!;
 
     @IBOutlet var energyLevelPicker: UIPickerView!;
 
+    // MARK: State
     var thumbNumber: Int!, thumbFileName: String!;
-    var currentMood: Mood!
-    var currentEnergyLevel: EnergyLevel!
+    var currentMood: Mood = .Ok
+    var currentEnergyLevel: EnergyLevel = .Average
 
     var currentTouchLocation: CGPoint?;
 
+    // MARK: Parameters
     let movementThreshold = 8;
     let minThumbNumber = 1;
     let maxThumbNumber = 15;
-
-    // MARK: Lifetime
-
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil);
-    }
-
-    required init(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder);
-    }
 
     // MARK: View Life Cycle
 
@@ -63,14 +57,47 @@ class MoodInputViewController: UIViewController, UIPickerViewDelegate, UIPickerV
     override func viewWillAppear(animated: Bool) {
         self.recordButton.hidden = true;
         self.explanationLabel.hidden = false;
+        self.moodRecordedLabel.hidden = true;
 
-        self.currentEnergyLevel = .Average;
+        let recentMood: MoodState? = nil //DataStore.sharedDataStore.getMostRecentMood();
+        if (recentMood != nil) {
+            self.currentEnergyLevel = recentMood!.energyLevel
+            self.currentMood = recentMood!.mood;
+        }
+        else {
+            self.currentEnergyLevel = .Average;
+            self.currentMood = .Ok
+        }
         self.energyLevelPicker.selectRow(self.currentEnergyLevel.rawValue, inComponent: 0, animated: false);
+
+        switch (self.currentMood) {
+        case .Euphoric:
+            thumbNumber = 1;
+        case .Great:
+            thumbNumber = 2;
+        case .Good:
+            thumbNumber = 4;
+        case .Ok:
+            thumbNumber = 7;
+        case .Bad:
+            thumbNumber = 10;
+        case .ReallyBad:
+            thumbNumber = 13;
+        case .Depressed:
+            thumbNumber = 15;
+        }
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+
+    // MARK: IBActions
+    @IBAction func saveMood() {
+        DataStore.sharedDataStore.recordMood(currentMood, energyLevel: currentEnergyLevel);
+        self.recordButton.hidden = true;
+        self.moodRecordedLabel.hidden = false;
     }
 
     // MARK: Touch Handling

@@ -191,12 +191,21 @@
                                 <color key="textColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mood Recorded" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wdk-ME-3Be">
+                                <rect key="frame" x="89" y="411" width="144" height="24"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4mY-kP-5GR">
                                 <rect key="frame" x="95" y="401" width="131" height="44"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="26"/>
                                 <state key="normal" title="Save Mood">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="saveMood" destination="6g9-fq-fMW" eventType="touchUpInside" id="Jg5-OJ-EQ8"/>
+                                </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Left Thumb 03" translatesAutoresizingMaskIntoConstraints="NO" id="X3j-x0-yfG" userLabel="Thumb Image">
                                 <rect key="frame" x="0.0" y="153" width="152" height="202"/>
@@ -255,8 +264,10 @@
                             <constraint firstItem="EVr-l4-E5H" firstAttribute="centerX" secondItem="2Bh-hJ-0Df" secondAttribute="centerX" constant="-26.5" id="jWs-fK-UmR"/>
                             <constraint firstItem="eQN-8k-nH7" firstAttribute="top" secondItem="OpN-7F-DHx" secondAttribute="bottom" constant="8" id="jpB-Bf-6ST"/>
                             <constraint firstItem="0jk-2a-f30" firstAttribute="leading" secondItem="CFV-KF-Pca" secondAttribute="leadingMargin" constant="18" id="jwQ-5c-ZcZ"/>
+                            <constraint firstItem="Wdk-ME-3Be" firstAttribute="centerY" secondItem="4mY-kP-5GR" secondAttribute="centerY" id="kax-ve-sgM"/>
                             <constraint firstItem="EVr-l4-E5H" firstAttribute="top" secondItem="2Bh-hJ-0Df" secondAttribute="bottom" constant="-8" id="kh0-zl-hNM"/>
                             <constraint firstItem="X3j-x0-yfG" firstAttribute="top" secondItem="eQN-8k-nH7" secondAttribute="bottom" id="qOr-mL-RKl"/>
+                            <constraint firstItem="Wdk-ME-3Be" firstAttribute="centerX" secondItem="4mY-kP-5GR" secondAttribute="centerX" id="s9W-Rk-Kbq"/>
                             <constraint firstItem="HBD-au-hRT" firstAttribute="leading" secondItem="CFV-KF-Pca" secondAttribute="leadingMargin" constant="59" id="t2O-tM-Jg9"/>
                             <constraint firstItem="4mY-kP-5GR" firstAttribute="centerY" secondItem="Kgv-Sg-p8d" secondAttribute="centerY" id="t8M-JO-Gxe"/>
                         </constraints>
@@ -280,6 +291,7 @@
                         <outlet property="explanationLabel" destination="Kgv-Sg-p8d" id="b1g-FD-WNU"/>
                         <outlet property="leftThumbImageView" destination="X3j-x0-yfG" id="IHx-Ci-UUQ"/>
                         <outlet property="moodLevelLabel" destination="OpN-7F-DHx" id="7uT-9g-5ud"/>
+                        <outlet property="moodRecordedLabel" destination="Wdk-ME-3Be" id="zhX-Hd-JR9"/>
                         <outlet property="recordButton" destination="4mY-kP-5GR" id="t61-Mz-tmY"/>
                     </connections>
                 </viewController>

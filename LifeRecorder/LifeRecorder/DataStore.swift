@@ -75,13 +75,14 @@ class DataStore {
             let thisEndDate = moodStateObject["endDate"] as! NSDate;
             if ((thisStartDate < endDate && thisStartDate > startDate) ||
                 (thisEndDate > startDate && thisEndDate < endDate)) {
-                    let mood = Mood(rawValue: moodStateObject["mood"] as! Int);
-                    let energyLevel = EnergyLevel(rawValue: moodStateObject["energyLevel"] as! Int);
-                    let moodStateStruct = MoodState(mood: mood!, energyLevel: energyLevel!, startDate: thisStartDate, endDate: thisEndDate);
-                    returnArray.insertAtEnd(moodStateStruct);
+                    returnArray.insertAtEnd(MoodState(managedObject: moodStateObject)!);
             }
         }
         return returnArray;
+    }
+
+    func getMostRecentMood() -> MoodState? {
+        return MoodState(managedObject: moodArray.first);
     }
 
     // MARK: NSManagedObject factory methods
@@ -96,4 +97,5 @@ class DataStore {
             assertionFailure("Could not save \(error), \(error?.userInfo)")
         }
     }
+
 }
