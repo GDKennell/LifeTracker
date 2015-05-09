@@ -42,13 +42,6 @@ class MoodInputViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         thumbNumber = 7;
         updateFileName();
 
-        if let theImage = UIImage(named: self.thumbFileName) {
-            self.leftThumbImageView.image = theImage;
-        }
-        else {
-            println("Couldn't create the image named " + self.thumbFileName);
-            exit(1);
-        }
         self.view.addSubview(leftThumbImageView);
         leftThumbImageView.frame = self.view.frame;
         // Do any additional setup after loading the view, typically from a nib.
@@ -59,7 +52,7 @@ class MoodInputViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         self.explanationLabel.hidden = false;
         self.moodRecordedLabel.hidden = true;
 
-        let recentMood: MoodState? = nil //DataStore.sharedDataStore.getMostRecentMood();
+        let recentMood: MoodState? = DataStore.sharedDataStore.getMostRecentMood();
         if (recentMood != nil) {
             self.currentEnergyLevel = recentMood!.energyLevel
             self.currentMood = recentMood!.mood;
@@ -86,6 +79,7 @@ class MoodInputViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         case .Depressed:
             thumbNumber = 15;
         }
+        updateFileName();
     }
 
     override func didReceiveMemoryWarning() {
@@ -142,7 +136,6 @@ class MoodInputViewController: UIViewController, UIPickerViewDelegate, UIPickerV
                 self.currentTouchLocation = newTouchLocation;
 
                 self.updateFileName();
-                self.leftThumbImageView.image = UIImage(named: self.thumbFileName);
             }
         }
     }
@@ -161,6 +154,10 @@ class MoodInputViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         var returnString = EnergyLevelStrings[row];
 
         return NSAttributedString(string: returnString);
+    }
+
+    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        self.currentEnergyLevel = EnergyLevel(rawValue: row)!;
     }
 
     // MARK: Helpers
@@ -192,5 +189,13 @@ class MoodInputViewController: UIViewController, UIPickerViewDelegate, UIPickerV
 
         self.recordButton.hidden = false;
         self.explanationLabel.hidden = true;
+
+        if let theImage = UIImage(named: self.thumbFileName) {
+            self.leftThumbImageView.image = theImage;
+        }
+        else {
+            println("Couldn't create the image named " + self.thumbFileName);
+            exit(1);
+        }
     }
 }

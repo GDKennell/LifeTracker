@@ -44,7 +44,7 @@ enum Mood: Int {
     case Depressed
 }
 
-let EnergyLevelStrings = ["Manic", "Hight", "Average", "Low", "Lethargic"];
+let EnergyLevelStrings = ["Manic", "High", "Average", "Low", "Lethargic"];
 
 enum EnergyLevel: Int {
     static let count: Int = 5;
