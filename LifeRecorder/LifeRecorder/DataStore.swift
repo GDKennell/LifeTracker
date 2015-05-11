@@ -29,7 +29,6 @@ class DataStore {
     // Local Storage
     var moodArray = [NSManagedObject]();
 
-
     // MARK: Initialization
     init!() {
         if (DataStore.dataStoreCreated) {
@@ -44,6 +43,13 @@ class DataStore {
         managedContext = appDelegate.managedObjectContext;
         moodStateEntityDescription = NSEntityDescription.entityForName("MoodState", inManagedObjectContext: managedContext)
 
+        let moodStateFetchRequest = NSFetchRequest(entityName: "MoodState");
+        var fetchError: NSError?;
+        let returnedArray = managedContext.executeFetchRequest(moodStateFetchRequest, error: &fetchError);
+        assert(returnedArray != nil, "failed to fetch MoodStates");
+        for moodState in returnedArray! {
+            moodArray.insertAtFront(moodState as! NSManagedObject);
+        }
     }
 
     // MARK: Mood Accessors
