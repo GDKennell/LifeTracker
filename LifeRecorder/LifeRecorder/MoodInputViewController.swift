@@ -194,8 +194,7 @@ class MoodInputViewController: UIViewController, UIPickerViewDelegate, UIPickerV
             self.leftThumbImageView.image = theImage;
         }
         else {
-            println("Couldn't create the image named " + self.thumbFileName);
-            exit(1);
+            assertionFailure("Couldn't create the image named " + self.thumbFileName);
         }
     }
 }

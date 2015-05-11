@@ -13,6 +13,10 @@ let SleepRowIndex = 1;
 let ActivitiesRowIndex = 2;
 let DrugsRowIndex = 3;
 
+class FirstViewControllerTableViewCell : UITableViewCell {
+    @IBOutlet var bigTextLabel: UILabel?;
+}
+
 class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     // MARK: Properties
     var moodInputViewController: MoodInputViewController?;
@@ -25,6 +29,7 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
 
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder);
+        tabBarItem.title = "Input";
     }
 
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
@@ -61,7 +66,7 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var newCell = tableView.dequeueReusableCellWithIdentifier("FirstViewTableViewCell") as? FirstViewControllerTableViewCell;
         if (newCell == nil) {
-            exit(1);
+            assertionFailure("Failed to create FirstViewTableViewCell from reuse identifier");
         }
         newCell!.bigTextLabel!.text = sectionTitles[indexPath.row];
         return newCell!;

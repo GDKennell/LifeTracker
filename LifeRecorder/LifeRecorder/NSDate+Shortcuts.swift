@@ -33,4 +33,24 @@ extension NSDate {
     func isAfter(otherDate: NSDate!) -> Bool {
         return !self.isBefore(otherDate);
     }
+
+    func timeString() -> String {
+        let dateFormatter = NSDateFormatter();
+        dateFormatter.dateFormat = "HH:mm a";
+        dateFormatter.locale = NSLocale.currentLocale();
+//        let dateFormatter: NSDateFormatter! = NSDateFormatter.dateFormatFromTemplate("hh:mm a", options: 0, locale: NSLocale.currentLocale());
+        return dateFormatter.stringFromDate(self);
+    }
+
+    static func now() -> NSDate {
+        return NSDate();
+    }
+
+    static func startOfDay() -> NSDate {
+        let rightNow = NSDate();
+        let cal: NSCalendar! = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian);
+        var newDate : NSDate?
+        cal.rangeOfUnit(.CalendarUnitDay, startDate: &newDate, interval: nil, forDate: rightNow)
+        return newDate!;
+    }
 }

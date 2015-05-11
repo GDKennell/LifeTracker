@@ -7,28 +7,131 @@
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
-        <!--Data-->
+        <!--Today List-->
         <scene sceneID="1g2-Mr-Nek">
             <objects>
-                <viewController title="Data" id="tXb-Bi-Wqt" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Today List" title="Today List" id="tXb-Bi-Wqt" customClass="TodayListViewController" customModule="LifeRecorder" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="dW5-bz-pfQ"/>
                         <viewControllerLayoutGuide type="bottom" id="EtX-2p-AMm"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="oXm-8r-LsF">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Data" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uJn-EH-Myp">
-                                <rect key="frame" x="262" y="289" width="36" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Maz-RZ-iKn">
+                                <rect key="frame" x="0.0" y="20" width="320" height="44"/>
+                                <items>
+                                    <navigationItem title="Today" id="Psm-Mn-rZD"/>
+                                </items>
+                            </navigationBar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="79" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="6Le-OC-Cjc">
+                                <rect key="frame" x="0.0" y="64" width="320" height="455"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TodayListViewTableViewCell" rowHeight="79" id="MAa-au-e8p" customClass="TodayListViewTableViewCell" customModule="LifeRecorder" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="MAa-au-e8p" id="4ks-Lc-bOo">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mood_icon_1" translatesAutoresizingMaskIntoConstraints="NO" id="7nu-rd-SOn">
+                                                    <rect key="frame" x="13" y="13" width="52" height="52"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="7nu-rd-SOn" secondAttribute="height" multiplier="1:1" id="gao-Ut-QsC"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Energy: Manic" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dPq-YW-uyd">
+                                                    <rect key="frame" x="85" y="49" width="110" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="10:30 AM" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kLD-Et-WRg">
+                                                    <rect key="frame" x="233" y="32" width="74" height="14"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mood: Euphoric" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uOy-Qi-Uks">
+                                                    <rect key="frame" x="85" y="18" width="141" height="24"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="7nu-rd-SOn" firstAttribute="top" secondItem="4ks-Lc-bOo" secondAttribute="topMargin" constant="5" id="GNB-Sj-vri"/>
+                                                <constraint firstAttribute="centerY" secondItem="uOy-Qi-Uks" secondAttribute="centerY" id="QIv-ZD-fYy"/>
+                                                <constraint firstItem="dPq-YW-uyd" firstAttribute="bottom" secondItem="4ks-Lc-bOo" secondAttribute="bottomMargin" id="QNN-c6-a5w"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="7nu-rd-SOn" secondAttribute="bottom" constant="5" id="UWQ-sB-tQN"/>
+                                                <constraint firstItem="uOy-Qi-Uks" firstAttribute="leading" secondItem="7nu-rd-SOn" secondAttribute="trailing" constant="20" id="Xte-6g-m80"/>
+                                                <constraint firstItem="uOy-Qi-Uks" firstAttribute="top" secondItem="4ks-Lc-bOo" secondAttribute="topMargin" constant="10" id="av6-Oq-36S"/>
+                                                <constraint firstItem="7nu-rd-SOn" firstAttribute="leading" secondItem="4ks-Lc-bOo" secondAttribute="leadingMargin" constant="5" id="gOX-ZR-aFH"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="kLD-Et-WRg" secondAttribute="trailing" constant="5" id="qC5-H2-sUW"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="kLD-Et-WRg" secondAttribute="bottom" constant="10" id="u2w-9v-9o9"/>
+                                                <constraint firstItem="dPq-YW-uyd" firstAttribute="leading" secondItem="uOy-Qi-Uks" secondAttribute="leading" id="vue-as-DT2"/>
+                                                <constraint firstAttribute="centerY" secondItem="kLD-Et-WRg" secondAttribute="centerY" id="xCg-5E-Swc"/>
+                                                <constraint firstItem="kLD-Et-WRg" firstAttribute="top" secondItem="4ks-Lc-bOo" secondAttribute="topMargin" constant="24" id="znE-4b-V4m"/>
+                                            </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="QIv-ZD-fYy"/>
+                                                    <exclude reference="xCg-5E-Swc"/>
+                                                    <exclude reference="znE-4b-V4m"/>
+                                                </mask>
+                                            </variation>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="energyLabel" destination="dPq-YW-uyd" id="Ok3-QM-sUy"/>
+                                            <outlet property="iconImageView" destination="7nu-rd-SOn" id="qQp-tE-hwk"/>
+                                            <outlet property="moodLabel" destination="uOy-Qi-Uks" id="eMk-1E-MVh"/>
+                                            <outlet property="timestampLabel" destination="kLD-Et-WRg" id="wbj-jv-4as"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="tXb-Bi-Wqt" id="ef5-1a-Szp"/>
+                                    <outlet property="delegate" destination="tXb-Bi-Wqt" id="hZw-74-adr"/>
+                                </connections>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Maz-RZ-iKn" firstAttribute="top" secondItem="dW5-bz-pfQ" secondAttribute="bottom" id="2QA-fD-NQO"/>
+                            <constraint firstItem="6Le-OC-Cjc" firstAttribute="width" secondItem="Maz-RZ-iKn" secondAttribute="width" id="6Lt-Vn-Jit"/>
+                            <constraint firstItem="6Le-OC-Cjc" firstAttribute="leading" secondItem="oXm-8r-LsF" secondAttribute="leadingMargin" constant="-30" id="8ck-ff-Cb1"/>
+                            <constraint firstItem="6Le-OC-Cjc" firstAttribute="centerX" secondItem="Maz-RZ-iKn" secondAttribute="centerX" id="C95-bW-hSY"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="6Le-OC-Cjc" secondAttribute="trailing" id="GGX-YZ-ALu"/>
+                            <constraint firstItem="Maz-RZ-iKn" firstAttribute="top" secondItem="dW5-bz-pfQ" secondAttribute="bottom" id="IX3-Ls-Rs9"/>
+                            <constraint firstItem="Maz-RZ-iKn" firstAttribute="leading" secondItem="oXm-8r-LsF" secondAttribute="leadingMargin" id="QMd-qx-n1C"/>
+                            <constraint firstItem="6Le-OC-Cjc" firstAttribute="top" secondItem="Maz-RZ-iKn" secondAttribute="bottom" id="Zwx-BR-97d"/>
+                            <constraint firstItem="EtX-2p-AMm" firstAttribute="top" secondItem="6Le-OC-Cjc" secondAttribute="bottom" id="ayD-3i-Ndh"/>
+                            <constraint firstAttribute="centerX" secondItem="Maz-RZ-iKn" secondAttribute="centerX" id="bWx-Mv-mae"/>
+                            <constraint firstAttribute="centerX" secondItem="6Le-OC-Cjc" secondAttribute="centerX" id="d5h-ZX-vmS"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Maz-RZ-iKn" secondAttribute="trailing" id="hrS-0z-xNl"/>
+                            <constraint firstItem="6Le-OC-Cjc" firstAttribute="width" secondItem="oXm-8r-LsF" secondAttribute="width" id="ocr-Pw-VKa"/>
+                            <constraint firstItem="6Le-OC-Cjc" firstAttribute="centerY" secondItem="Maz-RZ-iKn" secondAttribute="centerY" id="qDN-Da-r4Y"/>
+                            <constraint firstAttribute="width" secondItem="Maz-RZ-iKn" secondAttribute="width" id="xHH-8P-pXE"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="2QA-fD-NQO"/>
+                                <exclude reference="QMd-qx-n1C"/>
+                                <exclude reference="hrS-0z-xNl"/>
+                                <exclude reference="8ck-ff-Cb1"/>
+                                <exclude reference="GGX-YZ-ALu"/>
+                                <exclude reference="d5h-ZX-vmS"/>
+                                <exclude reference="ocr-Pw-VKa"/>
+                                <exclude reference="qDN-Da-r4Y"/>
+                            </mask>
+                        </variation>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item 2" id="Ifp-8N-SX5"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="tableView" destination="6Le-OC-Cjc" id="ehO-oq-CCz"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JYi-WS-2Jl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -53,10 +156,10 @@
             </objects>
             <point key="canvasLocation" x="-726" y="-436"/>
         </scene>
-        <!--First-->
+        <!--Input-->
         <scene sceneID="hNz-n2-bh7">
             <objects>
-                <viewController id="9pv-A4-QxB" customClass="FirstViewController" customModule="LifeRecorder" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Input" id="9pv-A4-QxB" customClass="FirstViewController" customModule="LifeRecorder" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="0H4-ed-IWS"/>
                         <viewControllerLayoutGuide type="bottom" id="aN0-iz-Pfk"/>
@@ -404,5 +507,6 @@
         <image name="back_button_black" width="100" height="100"/>
         <image name="first" width="30" height="30"/>
         <image name="forward_button_black" width="100" height="100"/>
+        <image name="mood_icon_1" width="440" height="585"/>
     </resources>
 </document>
