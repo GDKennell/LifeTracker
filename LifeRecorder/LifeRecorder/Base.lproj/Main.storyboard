@@ -242,6 +242,7 @@
                         <outlet property="tableView" destination="eer-Op-s6m" id="AIE-EQ-rLD"/>
                         <segue destination="6g9-fq-fMW" kind="show" identifier="MoodIdentifierSegue" id="8Tg-Uw-aG4"/>
                         <segue destination="Mjv-pN-bIw" kind="show" identifier="SleepSegue" id="ZHU-i7-1r1"/>
+                        <segue destination="eDo-q7-8es" kind="show" identifier="DrugSegue" id="Wmi-rk-CFD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
@@ -400,7 +401,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZgI-BX-Myu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1622" y="-1494"/>
+            <point key="canvasLocation" x="1464" y="-1500"/>
         </scene>
         <!--Sleep Input View Controller-->
         <scene sceneID="YmU-kk-Doh">
@@ -482,7 +483,84 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gnl-vk-Kjb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1622" y="-800"/>
+            <point key="canvasLocation" x="1870" y="-1188"/>
+        </scene>
+        <!--Drugs-->
+        <scene sceneID="vWW-na-ems">
+            <objects>
+                <viewController title="Drugs" id="eDo-q7-8es" customClass="DrugInputViewController" customModule="LifeRecorder" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Ubm-1c-QjX"/>
+                        <viewControllerLayoutGuide type="bottom" id="vAr-p3-DKb"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="wMf-r8-sHK">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="xeK-ev-X7c">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="VOu-5U-p4T">
+                                    <size key="itemSize" width="100" height="100"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="DrugCollectionViewCell" id="GRu-5h-AcT" customClass="DrugCollectionViewCell" customModule="LifeRecorder" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" image="drug_icon_pill" translatesAutoresizingMaskIntoConstraints="NO" id="3lO-kI-2Wx">
+                                                    <rect key="frame" x="13" y="13" width="74" height="64"/>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Xanax" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ND5-q9-2nI">
+                                                    <rect key="frame" x="33" y="82" width="35" height="15"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstItem="ND5-q9-2nI" firstAttribute="top" secondItem="3lO-kI-2Wx" secondAttribute="bottom" constant="5" id="CYk-lt-tTG"/>
+                                            <constraint firstItem="ND5-q9-2nI" firstAttribute="bottom" secondItem="GRu-5h-AcT" secondAttribute="bottomMargin" constant="5" id="HXu-CB-49V"/>
+                                            <constraint firstItem="3lO-kI-2Wx" firstAttribute="top" secondItem="GRu-5h-AcT" secondAttribute="topMargin" constant="5" id="ISj-OE-NRp"/>
+                                            <constraint firstAttribute="trailingMargin" secondItem="3lO-kI-2Wx" secondAttribute="trailing" constant="5" id="PKq-g0-rqg"/>
+                                            <constraint firstAttribute="centerX" secondItem="3lO-kI-2Wx" secondAttribute="centerX" constant="4.5" id="Q2x-u9-f3F"/>
+                                            <constraint firstAttribute="centerX" secondItem="ND5-q9-2nI" secondAttribute="centerX" id="inv-ah-cdF"/>
+                                            <constraint firstItem="3lO-kI-2Wx" firstAttribute="leading" secondItem="GRu-5h-AcT" secondAttribute="leadingMargin" constant="5" id="jUu-UX-M0z"/>
+                                            <constraint firstAttribute="centerX" secondItem="3lO-kI-2Wx" secondAttribute="centerX" id="oRt-9D-jAa"/>
+                                        </constraints>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="Q2x-u9-f3F"/>
+                                                <exclude reference="oRt-9D-jAa"/>
+                                            </mask>
+                                        </variation>
+                                        <connections>
+                                            <outlet property="imageView" destination="3lO-kI-2Wx" id="4iX-Mj-COD"/>
+                                            <outlet property="label" destination="ND5-q9-2nI" id="luL-cg-TMo"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="eDo-q7-8es" id="e2h-us-8Qk"/>
+                                    <outlet property="delegate" destination="eDo-q7-8es" id="YQF-ar-ycd"/>
+                                </connections>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Py0-t2-MAa" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2402" y="-1060"/>
         </scene>
         <!--Now-->
         <scene sceneID="5Mq-VK-aR8">
@@ -505,6 +583,7 @@
     <resources>
         <image name="Left Thumb 03" width="440" height="585"/>
         <image name="back_button_black" width="100" height="100"/>
+        <image name="drug_icon_pill" width="600" height="282"/>
         <image name="first" width="30" height="30"/>
         <image name="forward_button_black" width="100" height="100"/>
         <image name="mood_icon_1" width="440" height="585"/>

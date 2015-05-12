@@ -1,5 +1,5 @@
 //
-//  DataStructures.swift
+//  MoodStateDataStructures.swift
 //  LifeRecorder
 //
 //  Created by Grant Kennell on 5/7/15.

@@ -55,6 +55,8 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
             self.performSegueWithIdentifier("MoodIdentifierSegue", sender: self);
         case SleepRowIndex:
             self.performSegueWithIdentifier("SleepSegue", sender: self);
+        case DrugsRowIndex:
+            self.performSegueWithIdentifier("DrugSegue", sender: self);
         default:
             UIAlertView(title: "Oops!", message: "I havnen't built that yet", delegate: nil, cancelButtonTitle: "Ok").show();
         }
