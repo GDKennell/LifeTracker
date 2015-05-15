@@ -16,14 +16,46 @@ class DrugCollectionViewCell: UICollectionViewCell {
 
 class DrugInputViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     //MARK: Properties
-    let drugArray: [Drug] = AllDrugs;
+    var selectedDrugIndex: Int?;
+    var selectedCell: UICollectionViewCell?;
 
+    @IBOutlet var recordButton: UIButton!;
+    @IBOutlet var timePicker: UIDatePicker!;
+
+    //MARK: View Life Cycle
     override func viewDidLoad() {
 
     }
 
+    override func viewWillAppear(animated: Bool) {
+        if (selectedCell == nil) {
+            recordButton.enabled = false;
+        }
+    }
+
+    //MARK: IBActions
+    @IBAction func recordButtonPressed() {
+        assert(selectedDrugIndex != nil, "whoops");
+        DataStore.sharedDataStore.recordDrug(Drug(rawValue: selectedDrugIndex!), atDate: timePicker.date);
+        recordButton.enabled = false;
+        selectedCell!.backgroundColor = UIColor.clearColor();
+        selectedCell = nil;
+        selectedDrugIndex = nil;
+    }
+
+    //MARK: UICollectionViewDelegate
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        recordButton.enabled = true;
+
+        selectedCell?.backgroundColor = UIColor.clearColor();
+        selectedCell = collectionView.cellForItemAtIndexPath(indexPath);
+        selectedCell!.backgroundColor = UIColor.selectedColor();
+        selectedDrugIndex = indexPath.row;
+    }
+
+    //MARK: UICollectionViewDataSource
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return drugArray.count;
+        return Drug.count;
     }
 
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
@@ -31,9 +63,9 @@ class DrugInputViewController: UIViewController, UICollectionViewDelegate, UICol
                                                                            forIndexPath: indexPath) as? DrugCollectionViewCell;
         assert(cell != nil, "Failed to create DrugCollectionViewCell");
 
-        let drug = drugArray[indexPath.row];
-        cell!.imageView.image = UIImage(named: drug.iconFileName);
-        cell!.label.text = drug.drugName;
+        let drug = Drug(rawValue: indexPath.row);
+        cell!.imageView.image = UIImage(named: DrugIconFilenames[drug!.rawValue]);
+        cell!.label.text = DrugStrings[drug!.rawValue];
 
         return cell!;
     }

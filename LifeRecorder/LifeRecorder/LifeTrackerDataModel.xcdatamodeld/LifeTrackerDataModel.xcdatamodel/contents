@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7549" systemVersion="14D131" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="DrugState" syncable="YES">
+        <attribute name="drug" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="endDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="startDate" optional="YES" attributeType="Date" syncable="YES"/>
+    </entity>
     <entity name="MoodState" representedClassName="MoodState" syncable="YES">
         <attribute name="endDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="energyLevel" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
@@ -8,5 +13,6 @@
     </entity>
     <elements>
         <element name="MoodState" positionX="-63" positionY="-18" width="128" height="105"/>
+        <element name="DrugState" positionX="-63" positionY="9" width="128" height="90"/>
     </elements>
 </model>

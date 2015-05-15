@@ -560,6 +560,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
+                                    <action selector="recordButtonPressed" destination="eDo-q7-8es" eventType="touchUpInside" id="E7A-66-I8T"/>
                                     <action selector="saveMood" destination="6g9-fq-fMW" eventType="touchUpInside" id="FQq-Wq-jwn"/>
                                 </connections>
                             </button>
@@ -597,6 +598,10 @@
                         </constraints>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="recordButton" destination="2Oo-IC-COL" id="aeF-MR-0N1"/>
+                        <outlet property="timePicker" destination="9sX-oA-BGY" id="GvZ-fA-X9T"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Py0-t2-MAa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

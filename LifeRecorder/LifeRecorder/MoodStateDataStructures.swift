@@ -11,22 +11,17 @@ import CoreData
 
 let secondsPerHour = 60.0 * 60.0;
 
-struct MoodState {
+class MoodState: StateEvent {
     static let expirationTime: NSTimeInterval! = 3.0 * secondsPerHour;
     
     var mood: Mood!;
     var energyLevel: EnergyLevel!;
-    var startDate: NSDate!;
-    var endDate: NSDate!;
 
-    init?(managedObject: NSManagedObject?) {
-        if (managedObject == nil) {
-            return nil;
-        }
+    override init?(managedObject: NSManagedObject?) {
+        super.init(managedObject: managedObject);
+
         mood = Mood(rawValue: managedObject!["mood"] as! Int);
         energyLevel = EnergyLevel(rawValue: managedObject!["energyLevel"] as! Int);
-        startDate = managedObject!["startDate"] as! NSDate;
-        endDate = managedObject!["endDate"] as! NSDate;
     }
 }
 

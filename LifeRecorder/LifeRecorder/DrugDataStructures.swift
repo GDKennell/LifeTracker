@@ -7,20 +7,42 @@
 //
 
 import Foundation
+import CoreData
 
-let AllDrugs: [Drug] = [Drug(drugName:"Caffeine", iconFileName:"drug_icon_caffeine"),
-                        Drug(drugName:"Alcohol", iconFileName:"drug_icon_alcohol"),
-                        Drug(drugName:"Marijuana", iconFileName:"drug_icon_marijuana"),
-                        Drug(drugName:"Tobacco", iconFileName:"drug_icon_tobacco"),
-                        Drug(drugName:"Prozac", iconFileName:"drug_icon_pill"),
-                        Drug(drugName:"Xanax", iconFileName:"drug_icon_pill")]
+let DrugStrings = ["Caffeine",
+                   "Alcohol",
+                   "Marijuana",
+                   "Tobacco",
+                   "Prozac",
+                   "Xanax"]
 
-struct Drug {
-    let drugName: String!;
-    let iconFileName: String!;
+let DrugIconFilenames = ["drug_icon_caffeine",
+                         "drug_icon_alcohol",
+                         "drug_icon_marijuana",
+                         "drug_icon_tobacco",
+                         "drug_icon_pill",
+                         "drug_icon_pill"]
 
-    init(drugName: String!, iconFileName: String!) {
-        self.drugName = drugName;
-        self.iconFileName = iconFileName;
+enum Drug: Int {
+    static let count: Int = 6;
+
+    case Caffeine = 0
+    case Alcohol
+    case Marijuana
+    case Tobacco
+    case Prozac
+    case Xanax
+}
+
+class DrugState: StateEvent {
+    var drug: Drug!;
+    override init?(managedObject: NSManagedObject?) {
+        super.init(managedObject: managedObject);
+        self.drug = Drug(rawValue: managedObject!["drug"] as! Int)
+    }
+
+    init(drug: Drug!, startDate: NSDate!, endDate: NSDate!) {
+        self.drug = drug;
+        super.init(startDate: startDate, endDate: endDate);
     }
 }
