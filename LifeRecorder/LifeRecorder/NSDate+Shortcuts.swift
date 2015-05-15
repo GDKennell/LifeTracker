@@ -65,4 +65,9 @@ extension NSDate {
         cal.rangeOfUnit(.CalendarUnitDay, startDate: &newDate, interval: nil, forDate: rightNow)
         return newDate!;
     }
+
+    static func endOfDay() -> NSDate {
+        let fullDayTimeInterval: NSTimeInterval = 24 * 60 * 60;
+        return startOfDay().dateByAddingTimeInterval(fullDayTimeInterval);
+    }
 }
