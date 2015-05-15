@@ -11,6 +11,6 @@ import UIKit
 
 extension UIColor {
     static func selectedColor() -> UIColor {
-        return UIColor(red: 0.0, green: 0.0, blue: 0.7, alpha: 1.0);
+        return UIColor(red: 98.0 / 255.0, green: 156.0 / 255.0, blue: 222.0 / 255.0, alpha: 1.0);
     }
 }

@@ -97,21 +97,21 @@ class DataStore {
         for moodStateObject in moodArray {
             let thisStartDate = moodStateObject["startDate"] as! NSDate;
             let thisEndDate = moodStateObject["endDate"] as! NSDate;
-            if ((thisStartDate < endDate && thisStartDate > startDate) ||
-                (thisEndDate > startDate && thisEndDate < endDate)) {
+            if (thisStartDate.isBetween(startDate, and: endDate) ||
+                thisEndDate.isBetween(startDate, and: endDate)) {
                     returnArray.insertAtEnd(MoodState(managedObject: moodStateObject)!);
             }
         }
         for drugStateObject in drugArray {
             let thisStartDate = drugStateObject["startDate"] as! NSDate;
             let thisEndDate = drugStateObject["endDate"] as! NSDate;
-            if ((thisStartDate < endDate && thisStartDate > startDate) ||
-                (thisEndDate > startDate && thisEndDate < endDate)) {
+            if (thisStartDate.isBetween(startDate, and: endDate) ||
+                thisEndDate.isBetween(startDate, and: endDate)) {
                     returnArray.insertAtEnd(DrugState(managedObject: drugStateObject)!);
             }
         }
         returnArray.sort { (event1: StateEvent, event2: StateEvent) -> Bool in
-            return event1.startDate.isBefore(event2.startDate);
+            return event1.startDate.isAfter(event2.startDate);
         }
 
         return returnArray;
@@ -154,7 +154,7 @@ class DataStore {
         array.sort { (state1: NSManagedObject, state2: NSManagedObject) -> Bool in
             let property1 = state1[propertyName] as! NSDate;
             let property2 = state2[propertyName] as! NSDate;
-            return property1.isBefore(property2);
+            return property1.isAfter(property2);
         }
     }
 

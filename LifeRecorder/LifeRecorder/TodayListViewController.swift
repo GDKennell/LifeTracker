@@ -18,7 +18,7 @@ class TodayListViewTableViewCell: UITableViewCell {
 class TodayListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     // MARK: Properties
     @IBOutlet var tableView: UITableView!;
-    var moodStateArray: [MoodState]?;
+    var stateArray: [StateEvent]?;
 
     // MARK: Lifetime
 
@@ -56,19 +56,31 @@ class TodayListViewController: UIViewController, UITableViewDelegate, UITableVie
         if (newCell == nil) {
             assertionFailure("Failed to create TodayListViewTableViewCell from reuse identifier");
         }
-        assert(self.moodStateArray != nil && self.moodStateArray!.count >= indexPath.row + 1, "")
+        assert(self.stateArray != nil && self.stateArray!.count >= indexPath.row + 1, "")
 
-        let moodState = moodStateArray![indexPath.row];
-        let moodIconFilename = "mood_icon_" + String(moodState.mood.rawValue);
-        newCell!.iconImageView.image = UIImage(named: moodIconFilename);
-        newCell!.moodLabel.text = "Mood: " + MoodStrings[moodState.mood.rawValue];
-        newCell!.energyLabel.text = "Energy: " + EnergyLevelStrings[moodState.energyLevel.rawValue];
-        newCell!.timestampLabel.text = moodState.startDate.timeString();
+        let state = stateArray![indexPath.row];
+        newCell!.timestampLabel.text = state.startDate.timeString();
+
+        if let moodState = state as? MoodState {
+            let moodIconFilename = "mood_icon_" + String(moodState.mood.rawValue);
+            newCell!.iconImageView.image = UIImage(named: moodIconFilename);
+            newCell!.moodLabel.text = "Mood: " + MoodStrings[moodState.mood.rawValue];
+            newCell!.energyLabel.text = "Energy: " + EnergyLevelStrings[moodState.energyLevel.rawValue];
+        }
+        else if let drugState = state as? DrugState {
+            newCell!.iconImageView.image = UIImage(named: DrugIconFilenames[drugState.drug.rawValue]);
+            newCell!.moodLabel.text = DrugStrings[drugState.drug.rawValue];
+            newCell!.energyLabel.text = "";
+        }
+        else {
+            assertionFailure("Found unexpected subclass of StateEvent!");
+        }
+
         return newCell!;
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (self.moodStateArray != nil) ? self.moodStateArray!.count : 0;
+        return (self.stateArray != nil) ? self.stateArray!.count : 0;
     }
 
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -78,7 +90,7 @@ class TodayListViewController: UIViewController, UITableViewDelegate, UITableVie
     // MARK: Helpers
 
     func updateData() {
-        moodStateArray = DataStore.sharedDataStore.getMoodStatesFrom(NSDate.startOfDay(), to: NSDate.now());
+        stateArray = DataStore.sharedDataStore.getStatesFrom(NSDate.startOfDay(), to: NSDate.now());
         tableView.reloadData();
     }
 }

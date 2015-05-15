@@ -21,8 +21,16 @@ func <(pattern: NSDate, value: NSDate) -> Bool {
     return pattern.isBefore(value);
 }
 
+func <=(pattern: NSDate, value: NSDate) -> Bool {
+    return pattern.timeIntervalSinceDate(value) <= 0;
+}
+
 func >(pattern:NSDate, value: NSDate) -> Bool {
     return pattern.isAfter(value);
+}
+
+func >=(pattern: NSDate, value: NSDate) -> Bool {
+    return pattern.timeIntervalSinceDate(value) >= 0;
 }
 
 extension NSDate {
@@ -31,7 +39,11 @@ extension NSDate {
     }
 
     func isAfter(otherDate: NSDate!) -> Bool {
-        return !self.isBefore(otherDate);
+        return self.timeIntervalSinceDate(otherDate) > 0;
+    }
+
+    func isBetween(firstDate: NSDate!, and secondDate: NSDate!) -> Bool {
+        return (self >= firstDate && self <= secondDate);
     }
 
     func timeString() -> String {
