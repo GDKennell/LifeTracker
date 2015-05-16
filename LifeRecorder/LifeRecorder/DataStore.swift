@@ -50,9 +50,9 @@ class DataStore {
         let drugStateFetchRequest = NSFetchRequest(entityName: "DrugState");
 
         drugArray = fetchEntities(named: "DrugState");
-        sortObjectArray(&drugArray, byDateProperty: "startDate");
+        sortObjectArray(&drugArray, byDateProperty: "eventDate");
         moodArray = fetchEntities(named: "MoodState");
-        sortObjectArray(&moodArray, byDateProperty: "startDate");
+        sortObjectArray(&moodArray, byDateProperty: "eventDate");
     }
 
     // MARK: Drug Accessors
@@ -61,57 +61,42 @@ class DataStore {
 
         let newDrugState = self.newDrugState();
         newDrugState["drug"] = drug.rawValue;
-        newDrugState["startDate"] = date;
-        newDrugState["endDate"] = date;
+        newDrugState["eventDate"] = date;
 
         drugArray.insertAtFront(newDrugState);
-        sortObjectArray(&drugArray, byDateProperty: "startDate");
+        sortObjectArray(&drugArray, byDateProperty: "eventDate");
 
         self.saveData();
     }
 
     // MARK: Mood Accessors
     func recordMood(mood: Mood!, energyLevel: EnergyLevel!) {
-        let nowDate = NSDate();
-        var mostRecentMoodState = moodArray.first;
-        if mostRecentMoodState != nil {
-            var recentMoodStartDate = mostRecentMoodState!["startDate"] as! NSDate;
-            if (recentMoodStartDate.isAfter(nowDate)) {
-                mostRecentMoodState!["startDate"] = nowDate;
-            }
-        }
-
         var newMoodState = self.newMoodState();
         newMoodState["energyLevel"] = energyLevel.rawValue;
         newMoodState["mood"] = mood.rawValue;
-        newMoodState["startDate"] = nowDate;
-        newMoodState["endDate"] = nowDate + MoodState.expirationTime;
+        newMoodState["eventDate"] = NSDate.now();
 
         moodArray.insertAtFront(newMoodState);
-
+        sortObjectArray(&moodArray, byDateProperty: "eventDate");
         self.saveData();
     }
 
     func getStatesFrom(startDate: NSDate!, to endDate: NSDate!) -> [StateEvent]! {
         var returnArray = [StateEvent]();
         for moodStateObject in moodArray {
-            let thisStartDate = moodStateObject["startDate"] as! NSDate;
-            let thisEndDate = moodStateObject["endDate"] as! NSDate;
-            if (thisStartDate.isBetween(startDate, and: endDate) ||
-                thisEndDate.isBetween(startDate, and: endDate)) {
+            let thisEventDate = moodStateObject["eventDate"] as! NSDate;
+            if (thisEventDate.isBetween(startDate, and: endDate)) {
                     returnArray.insertAtEnd(MoodState(managedObject: moodStateObject)!);
             }
         }
         for drugStateObject in drugArray {
-            let thisStartDate = drugStateObject["startDate"] as! NSDate;
-            let thisEndDate = drugStateObject["endDate"] as! NSDate;
-            if (thisStartDate.isBetween(startDate, and: endDate) ||
-                thisEndDate.isBetween(startDate, and: endDate)) {
+            let thisEventDate = drugStateObject["eventDate"] as! NSDate;
+            if (thisEventDate.isBetween(startDate, and: endDate)) {
                     returnArray.insertAtEnd(DrugState(managedObject: drugStateObject)!);
             }
         }
         returnArray.sort { (event1: StateEvent, event2: StateEvent) -> Bool in
-            return event1.startDate.isAfter(event2.startDate);
+            return event1.eventDate.isAfter(event2.eventDate);
         }
 
         return returnArray;

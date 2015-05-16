@@ -43,11 +43,4 @@ class DrugState: StateEvent {
         self.iconImage = UIImage(named: DrugIconFilenames[drug.rawValue]);
         self.mainDisplayText = DrugStrings[drug.rawValue];
     }
-
-    init(drug: Drug!, startDate: NSDate!, endDate: NSDate!) {
-        self.drug = drug;
-        super.init(startDate: startDate, endDate: endDate);
-        self.iconImage = UIImage(named: DrugIconFilenames[drug.rawValue]);
-        self.mainDisplayText = DrugStrings[drug.rawValue];
-    }
 }

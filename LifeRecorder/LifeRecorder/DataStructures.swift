@@ -11,8 +11,7 @@ import CoreData
 import UIKit
 
 class StateEvent {
-    final var startDate: NSDate!;
-    final var endDate: NSDate?;
+    final var eventDate: NSDate!;
     final var iconImage: UIImage! = UIImage();
     final var mainDisplayText: String! = "";
     final var secondaryDisplayText: String! = "";
@@ -21,12 +20,10 @@ class StateEvent {
         if (managedObject == nil) {
             return nil;
         }
-        startDate = managedObject!["startDate"] as! NSDate!;
-        endDate = managedObject!["endDate"] as? NSDate;
+        eventDate = managedObject!["eventDate"] as! NSDate!;
     }
 
-    init(startDate: NSDate!, endDate: NSDate!) {
-        self.startDate = startDate;
-        self.endDate = endDate;
+    init(eventDate: NSDate!) {
+        self.eventDate = eventDate;
     }
 }

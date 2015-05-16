@@ -59,7 +59,7 @@ class TodayListViewController: UIViewController, UITableViewDelegate, UITableVie
         assert(self.stateArray != nil && self.stateArray!.count >= indexPath.row + 1, "")
 
         let state = stateArray![indexPath.row];
-        newCell!.timestampLabel.text = state.startDate.timeString();
+        newCell!.timestampLabel.text = state.eventDate.timeString();
 
         newCell!.iconImageView.image = state.iconImage;
         newCell!.moodLabel.text = state.mainDisplayText;
