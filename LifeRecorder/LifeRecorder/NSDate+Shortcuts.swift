@@ -12,6 +12,10 @@ func +(pattern: NSDate, value: NSTimeInterval) -> NSDate {
     return pattern.dateByAddingTimeInterval(value);
 }
 
+func -(pattern:NSDate, value: NSTimeInterval) -> NSDate {
+    return pattern.dateByAddingTimeInterval(-value);
+}
+
 func +=(inout pattern: NSDate, value: NSTimeInterval) -> NSDate {
     pattern = pattern.dateByAddingTimeInterval(value);
     return pattern;
@@ -71,3 +75,27 @@ extension NSDate {
         return startOfDay().dateByAddingTimeInterval(fullDayTimeInterval);
     }
 }
+
+extension NSTimeInterval {
+    init(hours: Int) {
+        self = 1.0 * secondsPerHour;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

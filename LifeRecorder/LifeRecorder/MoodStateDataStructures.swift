@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreData
+import UIKit
 
 let secondsPerHour = 60.0 * 60.0;
 
@@ -22,6 +23,11 @@ class MoodState: StateEvent {
 
         mood = Mood(rawValue: managedObject!["mood"] as! Int);
         energyLevel = EnergyLevel(rawValue: managedObject!["energyLevel"] as! Int);
+
+        let moodIconFilename = "mood_icon_" + String(mood.rawValue);
+        self.iconImage = UIImage(named: moodIconFilename);
+        self.mainDisplayText = "Mood: " + MoodStrings[mood.rawValue];
+        self.secondaryDisplayText = "Energy: " + EnergyLevelStrings[energyLevel.rawValue];
     }
 }
 

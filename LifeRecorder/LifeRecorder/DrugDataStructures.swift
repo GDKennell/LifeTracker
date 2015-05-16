@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreData
+import UIKit
 
 let DrugStrings = ["Caffeine",
                    "Alcohol",
@@ -39,10 +40,14 @@ class DrugState: StateEvent {
     override init?(managedObject: NSManagedObject?) {
         super.init(managedObject: managedObject);
         self.drug = Drug(rawValue: managedObject!["drug"] as! Int)
+        self.iconImage = UIImage(named: DrugIconFilenames[drug.rawValue]);
+        self.mainDisplayText = DrugStrings[drug.rawValue];
     }
 
     init(drug: Drug!, startDate: NSDate!, endDate: NSDate!) {
         self.drug = drug;
         super.init(startDate: startDate, endDate: endDate);
+        self.iconImage = UIImage(named: DrugIconFilenames[drug.rawValue]);
+        self.mainDisplayText = DrugStrings[drug.rawValue];
     }
 }

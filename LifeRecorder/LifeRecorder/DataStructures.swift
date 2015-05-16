@@ -8,16 +8,21 @@
 
 import Foundation
 import CoreData
+import UIKit
 
 class StateEvent {
     final var startDate: NSDate!;
-    final var endDate: NSDate!;
+    final var endDate: NSDate?;
+    final var iconImage: UIImage! = UIImage();
+    final var mainDisplayText: String! = "";
+    final var secondaryDisplayText: String! = "";
+
     init?(managedObject: NSManagedObject?) {
         if (managedObject == nil) {
             return nil;
         }
         startDate = managedObject!["startDate"] as! NSDate!;
-        endDate = managedObject!["endDate"] as! NSDate;
+        endDate = managedObject!["endDate"] as? NSDate;
     }
 
     init(startDate: NSDate!, endDate: NSDate!) {
