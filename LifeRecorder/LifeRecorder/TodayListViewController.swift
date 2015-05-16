@@ -10,8 +10,8 @@ import UIKit
 
 class TodayListViewTableViewCell: UITableViewCell {
     @IBOutlet var iconImageView: UIImageView!;
-    @IBOutlet var moodLabel: UILabel!;
-    @IBOutlet var energyLabel: UILabel!;
+    @IBOutlet var topLabel: UILabel!;
+    @IBOutlet var bottomLabel: UILabel!;
     @IBOutlet var timestampLabel: UILabel!;
 }
 
@@ -62,8 +62,8 @@ class TodayListViewController: UIViewController, UITableViewDelegate, UITableVie
         newCell!.timestampLabel.text = state.eventDate.timeString();
 
         newCell!.iconImageView.image = state.iconImage;
-        newCell!.moodLabel.text = state.mainDisplayText;
-        newCell!.energyLabel.text = state.secondaryDisplayText;
+        newCell!.topLabel.text = state.mainDisplayText;
+        newCell!.bottomLabel.text = state.secondaryDisplayText;
 
         return newCell!;
     }

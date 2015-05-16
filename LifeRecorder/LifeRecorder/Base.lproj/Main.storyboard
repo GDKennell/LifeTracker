@@ -83,10 +83,10 @@
                                             </variation>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="energyLabel" destination="dPq-YW-uyd" id="Ok3-QM-sUy"/>
+                                            <outlet property="bottomLabel" destination="dPq-YW-uyd" id="fo2-iQ-EXw"/>
                                             <outlet property="iconImageView" destination="7nu-rd-SOn" id="qQp-tE-hwk"/>
-                                            <outlet property="moodLabel" destination="uOy-Qi-Uks" id="eMk-1E-MVh"/>
                                             <outlet property="timestampLabel" destination="kLD-Et-WRg" id="wbj-jv-4as"/>
+                                            <outlet property="topLabel" destination="uOy-Qi-Uks" id="gbX-yV-Z2b"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
