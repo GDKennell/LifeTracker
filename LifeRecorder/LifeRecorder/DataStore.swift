@@ -24,10 +24,12 @@ class DataStore {
 
     // Core Data
     let managedObjectContext: NSManagedObjectContext!;
+    let activityStateEntityDescription: NSEntityDescription!;
     let moodStateEntityDescription: NSEntityDescription!;
     let drugStateEntityDescription: NSEntityDescription!;
 
     // Local Storage
+    var activityArray = [NSManagedObject]();
     var moodArray = [NSManagedObject]();
     var drugArray = [NSManagedObject]();
 
@@ -44,15 +46,29 @@ class DataStore {
 
         managedObjectContext = appDelegate.managedObjectContext;
 
+        activityStateEntityDescription = NSEntityDescription.entityForName("ActivityState", inManagedObjectContext: managedObjectContext)
         drugStateEntityDescription = NSEntityDescription.entityForName("DrugState", inManagedObjectContext: managedObjectContext)
         moodStateEntityDescription = NSEntityDescription.entityForName("MoodState", inManagedObjectContext: managedObjectContext)
 
         let drugStateFetchRequest = NSFetchRequest(entityName: "DrugState");
 
+        activityArray = fetchEntities(named: "ActivityState");
+        sortObjectArray(&activityArray, byDateProperty: "eventDate");
         drugArray = fetchEntities(named: "DrugState");
         sortObjectArray(&drugArray, byDateProperty: "eventDate");
         moodArray = fetchEntities(named: "MoodState");
         sortObjectArray(&moodArray, byDateProperty: "eventDate");
+    }
+
+    // MARK: Activity Accessors
+    func recordActivity(activity: Activity!, atDate date: NSDate) {
+        let newActivityState = self.newActivityState();
+        newActivityState["activity"] = activity.rawValue;
+        newActivityState["eventDate"] = date;
+        activityArray.insertAtFront(newActivityState);
+        sortObjectArray(&activityArray, byDateProperty: "eventDate");
+
+        self.saveData();
     }
 
     // MARK: Drug Accessors
@@ -83,6 +99,13 @@ class DataStore {
 
     func getStatesFrom(startDate: NSDate!, to endDate: NSDate!) -> [StateEvent]! {
         var returnArray = [StateEvent]();
+        for activityStateObject in activityArray {
+            let thisEventDate = activityStateObject["eventDate"] as! NSDate;
+            if (thisEventDate.isBetween(startDate, and: endDate)) {
+                returnArray.insertAtEnd(ActivityState(managedObject: activityStateObject)!);
+            }
+        }
+
         for moodStateObject in moodArray {
             let thisEventDate = moodStateObject["eventDate"] as! NSDate;
             if (thisEventDate.isBetween(startDate, and: endDate)) {
@@ -107,6 +130,10 @@ class DataStore {
     }
 
     // MARK: NSManagedObject factory methods
+    func newActivityState() -> NSManagedObject! {
+        return NSManagedObject(entity: activityStateEntityDescription, insertIntoManagedObjectContext: managedObjectContext);
+    }
+
     func newMoodState() -> NSManagedObject! {
         return NSManagedObject(entity: moodStateEntityDescription, insertIntoManagedObjectContext: managedObjectContext);
     }

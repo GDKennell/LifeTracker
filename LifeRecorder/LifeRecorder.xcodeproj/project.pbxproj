@@ -25,6 +25,8 @@
 		CAD25D1D1B01B01C0075D3FE /* DrugInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD25D1C1B01B01C0075D3FE /* DrugInputViewController.swift */; };
 		CAD25D1F1B03CE520075D3FE /* UIColor+ThemeColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD25D1E1B03CE520075D3FE /* UIColor+ThemeColors.swift */; };
 		CAD25D211B05A0680075D3FE /* DataStructures.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD25D201B05A0680075D3FE /* DataStructures.swift */; };
+		CAD25D231B083BC90075D3FE /* ActivityDataStructures.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD25D221B083BC90075D3FE /* ActivityDataStructures.swift */; };
+		CAD25D251B083EF10075D3FE /* ActivityInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD25D241B083EF10075D3FE /* ActivityInputViewController.swift */; };
 		CAD590591AF14FB2009CF14F /* SleepInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD590581AF14FB2009CF14F /* SleepInputViewController.swift */; };
 		CAD5905B1AF30E48009CF14F /* SleepInputClockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD5905A1AF30E48009CF14F /* SleepInputClockView.swift */; };
 		CAE5A38B1AFBF75C009D808D /* NSManagedObject+Shortcuts.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAE5A38A1AFBF75C009D808D /* NSManagedObject+Shortcuts.swift */; };
@@ -63,6 +65,8 @@
 		CAD25D1C1B01B01C0075D3FE /* DrugInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrugInputViewController.swift; sourceTree = "<group>"; };
 		CAD25D1E1B03CE520075D3FE /* UIColor+ThemeColors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+ThemeColors.swift"; sourceTree = "<group>"; };
 		CAD25D201B05A0680075D3FE /* DataStructures.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataStructures.swift; sourceTree = "<group>"; };
+		CAD25D221B083BC90075D3FE /* ActivityDataStructures.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityDataStructures.swift; sourceTree = "<group>"; };
+		CAD25D241B083EF10075D3FE /* ActivityInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityInputViewController.swift; sourceTree = "<group>"; };
 		CAD590581AF14FB2009CF14F /* SleepInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SleepInputViewController.swift; sourceTree = "<group>"; };
 		CAD5905A1AF30E48009CF14F /* SleepInputClockView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SleepInputClockView.swift; sourceTree = "<group>"; };
 		CAE5A38A1AFBF75C009D808D /* NSManagedObject+Shortcuts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSManagedObject+Shortcuts.swift"; sourceTree = "<group>"; };
@@ -110,6 +114,7 @@
 				CAC3C8991AFBD96C00D8BD9B /* Extensions */,
 				CAC3C8941AFBD0CF00D8BD9B /* Data Model */,
 				CA3DE1781AEFE7F5008356A8 /* AppDelegate.swift */,
+				CAD25D241B083EF10075D3FE /* ActivityInputViewController.swift */,
 				CA3DE17A1AEFE7F5008356A8 /* FirstViewController.swift */,
 				CAD25D1C1B01B01C0075D3FE /* DrugInputViewController.swift */,
 				CA3DE19C1AF003B8008356A8 /* MoodInputViewController.swift */,
@@ -152,6 +157,7 @@
 		CAC3C8941AFBD0CF00D8BD9B /* Data Model */ = {
 			isa = PBXGroup;
 			children = (
+				CAD25D221B083BC90075D3FE /* ActivityDataStructures.swift */,
 				CAC3C8921AFBBEC800D8BD9B /* MoodStateDataStructures.swift */,
 				CAD25D1A1B01A95C0075D3FE /* DrugDataStructures.swift */,
 				CAC3C88D1AFAB0E800D8BD9B /* DataStore.swift */,
@@ -273,6 +279,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CAD25D251B083EF10075D3FE /* ActivityInputViewController.swift in Sources */,
 				CAC3C8911AFBBBAE00D8BD9B /* LifeTrackerDataModel.xcdatamodeld in Sources */,
 				CAD25D1F1B03CE520075D3FE /* UIColor+ThemeColors.swift in Sources */,
 				CAE5A38B1AFBF75C009D808D /* NSManagedObject+Shortcuts.swift in Sources */,
@@ -281,6 +288,7 @@
 				CAD25D211B05A0680075D3FE /* DataStructures.swift in Sources */,
 				CAC3C89B1AFBD98300D8BD9B /* NSDate+Shortcuts.swift in Sources */,
 				CA3DE17D1AEFE7F5008356A8 /* TodayListViewController.swift in Sources */,
+				CAD25D231B083BC90075D3FE /* ActivityDataStructures.swift in Sources */,
 				CA3DE1791AEFE7F5008356A8 /* AppDelegate.swift in Sources */,
 				CAC3C89D1AFBDD0600D8BD9B /* Array+Shortcuts.swift in Sources */,
 				CAD590591AF14FB2009CF14F /* SleepInputViewController.swift in Sources */,
