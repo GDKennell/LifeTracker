@@ -14,6 +14,7 @@ let DrugStrings = ["Caffeine",
                    "Alcohol",
                    "Marijuana",
                    "Tobacco",
+                   "Melatonin",
                    "Prozac",
                    "Xanax"]
 
@@ -22,15 +23,17 @@ let DrugIconFilenames = ["drug_icon_caffeine",
                          "drug_icon_marijuana",
                          "drug_icon_tobacco",
                          "drug_icon_pill",
+                         "drug_icon_pill",
                          "drug_icon_pill"]
 
 enum Drug: Int {
-    static let count: Int = 6;
+    static let count: Int = 7;
 
     case Caffeine = 0
     case Alcohol
     case Marijuana
     case Tobacco
+    case Melatonin
     case Prozac
     case Xanax
 }
