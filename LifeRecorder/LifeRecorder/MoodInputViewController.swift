@@ -22,6 +22,7 @@ class MoodInputViewController: UIViewController, UIPickerViewDelegate, UIPickerV
     @IBOutlet var moodRecordedLabel: UILabel!;
 
     @IBOutlet var energyLevelPicker: UIPickerView!;
+    @IBOutlet var timePicker: UIDatePicker!;
 
     // MARK: State
     var thumbNumber: Int!, thumbFileName: String!;
@@ -89,9 +90,15 @@ class MoodInputViewController: UIViewController, UIPickerViewDelegate, UIPickerV
 
     // MARK: IBActions
     @IBAction func saveMood() {
-        DataStore.sharedDataStore.recordMood(currentMood, energyLevel: currentEnergyLevel);
+        DataStore.sharedDataStore.recordMood(currentMood, energyLevel: currentEnergyLevel, atDate: timePicker.date);
         self.recordButton.hidden = true;
         self.moodRecordedLabel.hidden = false;
+    }
+
+    @IBAction func timePickerChanged() {
+        self.recordButton.hidden = false;
+        self.moodRecordedLabel.hidden = true;
+        self.explanationLabel.hidden = true;
     }
 
     // MARK: Touch Handling
@@ -136,6 +143,9 @@ class MoodInputViewController: UIViewController, UIPickerViewDelegate, UIPickerV
                 self.currentTouchLocation = newTouchLocation;
 
                 self.updateFileName();
+                self.explanationLabel.hidden = true;
+                self.recordButton.hidden = false;
+                self.moodRecordedLabel.hidden = true;
             }
         }
     }
@@ -186,9 +196,6 @@ class MoodInputViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         }
 
         self.moodLevelLabel.text = MoodStrings[currentMood.rawValue];
-
-        self.recordButton.hidden = false;
-        self.explanationLabel.hidden = true;
 
         if let theImage = UIImage(named: self.thumbFileName) {
             self.leftThumbImageView.image = theImage;

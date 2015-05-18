@@ -86,11 +86,11 @@ class DataStore {
     }
 
     // MARK: Mood Accessors
-    func recordMood(mood: Mood!, energyLevel: EnergyLevel!) {
+    func recordMood(mood: Mood!, energyLevel: EnergyLevel!, atDate date: NSDate) {
         var newMoodState = self.newMoodState();
         newMoodState["energyLevel"] = energyLevel.rawValue;
         newMoodState["mood"] = mood.rawValue;
-        newMoodState["eventDate"] = NSDate.now();
+        newMoodState["eventDate"] = date;
 
         moodArray.insertAtFront(newMoodState);
         sortObjectArray(&moodArray, byDateProperty: "eventDate");
