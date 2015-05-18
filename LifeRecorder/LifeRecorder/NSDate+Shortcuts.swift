@@ -8,6 +8,14 @@
 
 import Foundation
 
+func min(firstDate: NSDate, secondDate: NSDate) -> NSDate {
+    return firstDate.isBefore(secondDate) ? firstDate : secondDate;
+}
+
+func max(firstDate: NSDate, secondDate: NSDate) -> NSDate {
+    return firstDate.isAfter(secondDate) ? firstDate : secondDate;
+}
+
 func +(pattern: NSDate, value: NSTimeInterval) -> NSDate {
     return pattern.dateByAddingTimeInterval(value);
 }
@@ -75,6 +83,9 @@ extension NSDate {
         return startOfDay().dateByAddingTimeInterval(fullDayTimeInterval);
     }
 }
+
+let kTimeInterval12hours: NSTimeInterval = 12 * 60 * 60;
+let kTimeInterval24hours: NSTimeInterval = 24 * 60 * 60;
 
 extension NSTimeInterval {
     init(hours: Int) {

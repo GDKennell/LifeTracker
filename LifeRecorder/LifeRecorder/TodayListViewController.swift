@@ -79,7 +79,8 @@ class TodayListViewController: UIViewController, UITableViewDelegate, UITableVie
     // MARK: Helpers
 
     func updateData() {
-        stateArray = DataStore.sharedDataStore.getStatesFrom(NSDate.startOfDay(), to: NSDate.endOfDay());
+        stateArray = DataStore.sharedDataStore.getStatesFrom(min(NSDate.startOfDay(), NSDate.now() - kTimeInterval12hours),
+                                                         to: NSDate.endOfDay());
         tableView.reloadData();
     }
 }
