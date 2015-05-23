@@ -24,7 +24,6 @@ class TodayListViewController: UIViewController, UITableViewDelegate, UITableVie
 
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder);
-        tabBarItem.title = "Today";
     }
 
     // MARK: View Life Cycle
@@ -36,6 +35,7 @@ class TodayListViewController: UIViewController, UITableViewDelegate, UITableVie
 
     override func viewWillAppear(animated: Bool) {
         self.updateData();
+        self.navigationItem.title = "Today";
     }
 
     override func didReceiveMemoryWarning() {
@@ -46,7 +46,11 @@ class TodayListViewController: UIViewController, UITableViewDelegate, UITableVie
     // MARK: UITableViewDelegate
 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: false);
+    }
 
+    func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
+        return UITableViewCellEditingStyle.Delete;
     }
 
     // MARK: UITableViewDataSource
@@ -74,6 +78,12 @@ class TodayListViewController: UIViewController, UITableViewDelegate, UITableVie
 
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1;
+    }
+
+    // Editing
+
+    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true;
     }
 
     // MARK: Helpers

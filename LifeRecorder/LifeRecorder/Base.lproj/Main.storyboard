@@ -7,10 +7,27 @@
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
+        <!--Today-->
+        <scene sceneID="I8n-ea-8y9">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="uar-Fe-Ezd" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Today" id="rLC-9H-xpk"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="yQi-on-i5I">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="tXb-Bi-Wqt" kind="relationship" relationship="rootViewController" id="qPa-DG-4jM"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HTH-oL-0aL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="207" y="-204"/>
+        </scene>
         <!--Today List-->
         <scene sceneID="1g2-Mr-Nek">
             <objects>
-                <viewController storyboardIdentifier="Today List" title="Today List" id="tXb-Bi-Wqt" customClass="TodayListViewController" customModule="LifeRecorder" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Today List" title="Today List" automaticallyAdjustsScrollViewInsets="NO" id="tXb-Bi-Wqt" customClass="TodayListViewController" customModule="LifeRecorder" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="dW5-bz-pfQ"/>
                         <viewControllerLayoutGuide type="bottom" id="EtX-2p-AMm"/>
@@ -19,17 +36,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Maz-RZ-iKn">
-                                <rect key="frame" x="0.0" y="20" width="320" height="44"/>
-                                <items>
-                                    <navigationItem title="Today" id="Psm-Mn-rZD"/>
-                                </items>
-                            </navigationBar>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="79" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="6Le-OC-Cjc">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="79" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="6Le-OC-Cjc">
                                 <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TodayListViewTableViewCell" rowHeight="79" id="MAa-au-e8p" customClass="TodayListViewTableViewCell" customModule="LifeRecorder" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TodayListViewTableViewCell" rowHeight="79" id="MAa-au-e8p" customClass="TodayListViewTableViewCell" customModule="LifeRecorder" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="MAa-au-e8p" id="4ks-Lc-bOo">
@@ -47,8 +58,8 @@
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="10:30 AM" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kLD-Et-WRg">
-                                                    <rect key="frame" x="233" y="32" width="74" height="14"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10:30 AM" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kLD-Et-WRg">
+                                                    <rect key="frame" x="245" y="43" width="62" height="17"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
@@ -98,36 +109,26 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="Maz-RZ-iKn" firstAttribute="top" secondItem="dW5-bz-pfQ" secondAttribute="bottom" id="2QA-fD-NQO"/>
-                            <constraint firstItem="6Le-OC-Cjc" firstAttribute="width" secondItem="Maz-RZ-iKn" secondAttribute="width" id="6Lt-Vn-Jit"/>
+                            <constraint firstItem="6Le-OC-Cjc" firstAttribute="leading" secondItem="oXm-8r-LsF" secondAttribute="leadingMargin" constant="-16" id="4cV-Zo-dKN"/>
                             <constraint firstItem="6Le-OC-Cjc" firstAttribute="leading" secondItem="oXm-8r-LsF" secondAttribute="leadingMargin" constant="-30" id="8ck-ff-Cb1"/>
-                            <constraint firstItem="6Le-OC-Cjc" firstAttribute="centerX" secondItem="Maz-RZ-iKn" secondAttribute="centerX" id="C95-bW-hSY"/>
                             <constraint firstAttribute="trailingMargin" secondItem="6Le-OC-Cjc" secondAttribute="trailing" id="GGX-YZ-ALu"/>
-                            <constraint firstItem="Maz-RZ-iKn" firstAttribute="top" secondItem="dW5-bz-pfQ" secondAttribute="bottom" id="IX3-Ls-Rs9"/>
-                            <constraint firstItem="Maz-RZ-iKn" firstAttribute="leading" secondItem="oXm-8r-LsF" secondAttribute="leadingMargin" id="QMd-qx-n1C"/>
-                            <constraint firstItem="6Le-OC-Cjc" firstAttribute="top" secondItem="Maz-RZ-iKn" secondAttribute="bottom" id="Zwx-BR-97d"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="6Le-OC-Cjc" secondAttribute="trailing" constant="-16" id="KQV-Ms-Sud"/>
                             <constraint firstItem="EtX-2p-AMm" firstAttribute="top" secondItem="6Le-OC-Cjc" secondAttribute="bottom" id="ayD-3i-Ndh"/>
-                            <constraint firstAttribute="centerX" secondItem="Maz-RZ-iKn" secondAttribute="centerX" id="bWx-Mv-mae"/>
                             <constraint firstAttribute="centerX" secondItem="6Le-OC-Cjc" secondAttribute="centerX" id="d5h-ZX-vmS"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Maz-RZ-iKn" secondAttribute="trailing" id="hrS-0z-xNl"/>
                             <constraint firstItem="6Le-OC-Cjc" firstAttribute="width" secondItem="oXm-8r-LsF" secondAttribute="width" id="ocr-Pw-VKa"/>
-                            <constraint firstItem="6Le-OC-Cjc" firstAttribute="centerY" secondItem="Maz-RZ-iKn" secondAttribute="centerY" id="qDN-Da-r4Y"/>
-                            <constraint firstAttribute="width" secondItem="Maz-RZ-iKn" secondAttribute="width" id="xHH-8P-pXE"/>
+                            <constraint firstItem="6Le-OC-Cjc" firstAttribute="top" secondItem="dW5-bz-pfQ" secondAttribute="bottom" id="t6S-1g-Uf9"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="2QA-fD-NQO"/>
-                                <exclude reference="QMd-qx-n1C"/>
-                                <exclude reference="hrS-0z-xNl"/>
                                 <exclude reference="8ck-ff-Cb1"/>
                                 <exclude reference="GGX-YZ-ALu"/>
                                 <exclude reference="d5h-ZX-vmS"/>
                                 <exclude reference="ocr-Pw-VKa"/>
-                                <exclude reference="qDN-Da-r4Y"/>
                             </mask>
                         </variation>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item 2" id="Ifp-8N-SX5"/>
+                    <navigationItem key="navigationItem" id="LYH-Yz-pdr"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="tableView" destination="6Le-OC-Cjc" id="ehO-oq-CCz"/>
@@ -135,7 +136,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JYi-WS-2Jl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="230" y="-168"/>
+            <point key="canvasLocation" x="878" y="-249"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="EeS-LS-8Lq">
@@ -149,7 +150,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="g0V-sL-NRP" kind="relationship" relationship="viewControllers" id="Xwg-zf-1h0"/>
-                        <segue destination="tXb-Bi-Wqt" kind="relationship" relationship="viewControllers" id="n2h-0y-AP0"/>
+                        <segue destination="uar-Fe-Ezd" kind="relationship" relationship="viewControllers" id="DVq-9j-aLw"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gD8-UR-sBU" userLabel="First Responder" sceneMemberID="firstResponder"/>

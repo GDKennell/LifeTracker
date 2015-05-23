@@ -40,6 +40,7 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
 
     override func viewDidLoad() {
         super.viewDidLoad();
+        self.navigationItem.title = "Input";
     }
 
     override func didReceiveMemoryWarning() {
