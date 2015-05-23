@@ -31,11 +31,12 @@ class TodayListViewController: UIViewController, UITableViewDelegate, UITableVie
     override func viewDidLoad() {
         super.viewDidLoad()
         self.updateData();
+        self.navigationItem.title = "Today";
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Edit, target: self, action: Selector("editButtonPressed"))
     }
 
     override func viewWillAppear(animated: Bool) {
         self.updateData();
-        self.navigationItem.title = "Today";
     }
 
     override func didReceiveMemoryWarning() {
@@ -84,6 +85,24 @@ class TodayListViewController: UIViewController, UITableViewDelegate, UITableVie
 
     func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         return true;
+    }
+
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if (editingStyle == .Delete) {
+            self.stateArray!.removeAtIndex(indexPath.row);
+            self.tableView.reloadData();
+        }
+    }
+
+    // MARK: Actions
+    func editButtonPressed() {
+        self.tableView.setEditing(true, animated: true);
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Done, target: self, action: Selector("doneButtonPressed"));
+    }
+
+    func doneButtonPressed() {
+        self.tableView.setEditing(false, animated: true);
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Edit, target: self, action: Selector("editButtonPressed"))
     }
 
     // MARK: Helpers
