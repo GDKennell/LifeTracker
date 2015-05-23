@@ -15,7 +15,7 @@ let DrugStrings = ["Caffeine",
                    "Marijuana",
                    "Tobacco",
                    "Melatonin",
-                   "Prozac",
+                   "Ibuprophen",
                    "Xanax"]
 
 let DrugIconFilenames = ["drug_icon_caffeine",
@@ -34,7 +34,7 @@ enum Drug: Int {
     case Marijuana
     case Tobacco
     case Melatonin
-    case Prozac
+    case Ibuprophen
     case Xanax
 }
 
