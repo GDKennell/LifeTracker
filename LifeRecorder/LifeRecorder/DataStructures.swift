@@ -15,15 +15,13 @@ class StateEvent {
     final var iconImage: UIImage! = UIImage();
     final var mainDisplayText: String! = "";
     final var secondaryDisplayText: String! = "";
+    final var managedObject: NSManagedObject!;
 
     init?(managedObject: NSManagedObject?) {
         if (managedObject == nil) {
             return nil;
         }
         eventDate = managedObject!["eventDate"] as! NSDate!;
-    }
-
-    init(eventDate: NSDate!) {
-        self.eventDate = eventDate;
+        self.managedObject = managedObject!;
     }
 }

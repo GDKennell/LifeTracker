@@ -30,10 +30,7 @@ class DataStore {
     let sleepStateEntityDescription: NSEntityDescription!;
 
     // Local Storage
-    var activityArray = [NSManagedObject]();
-    var moodArray = [NSManagedObject]();
-    var drugArray = [NSManagedObject]();
-    var sleepArray = [NSManagedObject]();
+    var stateArray = [NSManagedObject]();
 
     // MARK: Initialization
     init!() {
@@ -56,14 +53,17 @@ class DataStore {
 
         let drugStateFetchRequest = NSFetchRequest(entityName: "DrugState");
 
-        activityArray = fetchEntities(named: "ActivityState");
+        var activityArray: [NSManagedObject] = fetchEntities(named: "ActivityState");
         sortObjectArray(&activityArray, byDateProperty: "eventDate");
-        drugArray = fetchEntities(named: "DrugState");
+        var drugArray: [NSManagedObject] = fetchEntities(named: "DrugState");
         sortObjectArray(&drugArray, byDateProperty: "eventDate");
-        moodArray = fetchEntities(named: "MoodState");
+        var moodArray: [NSManagedObject] = fetchEntities(named: "MoodState");
         sortObjectArray(&moodArray, byDateProperty: "eventDate");
-        sleepArray = fetchEntities(named: "SleepState");
+        var sleepArray: [NSManagedObject] = fetchEntities(named: "SleepState");
         sortObjectArray(&sleepArray, byDateProperty: "eventDate");
+
+        stateArray = activityArray + drugArray + moodArray + sleepArray;
+        sortObjectArray(&stateArray, byDateProperty: "eventDate");
     }
 
     // MARK: Activity Accessors
@@ -71,8 +71,8 @@ class DataStore {
         let newActivityState = self.newActivityState();
         newActivityState["activity"] = activity.rawValue;
         newActivityState["eventDate"] = date;
-        activityArray.insertAtFront(newActivityState);
-        sortObjectArray(&activityArray, byDateProperty: "eventDate");
+        stateArray.insertAtFront(newActivityState);
+        sortObjectArray(&stateArray, byDateProperty: "eventDate");
 
         self.saveData();
     }
@@ -85,8 +85,8 @@ class DataStore {
         newDrugState["drug"] = drug.rawValue;
         newDrugState["eventDate"] = date;
 
-        drugArray.insertAtFront(newDrugState);
-        sortObjectArray(&drugArray, byDateProperty: "eventDate");
+        stateArray.insertAtFront(newDrugState);
+        sortObjectArray(&stateArray, byDateProperty: "eventDate");
 
         self.saveData();
     }
@@ -98,13 +98,18 @@ class DataStore {
         newMoodState["mood"] = mood.rawValue;
         newMoodState["eventDate"] = date;
 
-        moodArray.insertAtFront(newMoodState);
-        sortObjectArray(&moodArray, byDateProperty: "eventDate");
+        stateArray.insertAtFront(newMoodState);
+        sortObjectArray(&stateArray, byDateProperty: "eventDate");
         self.saveData();
     }
 
     func getMostRecentMood() -> MoodState? {
-        return MoodState(managedObject: moodArray.first);
+        for state: NSManagedObject in stateArray {
+            if (state.entity.description == "MoodState") {
+                return MoodState(managedObject: state);
+            }
+        }
+        return nil;
     }
 
     // MARK: Sleep Accessors
@@ -115,39 +120,31 @@ class DataStore {
         newFallAsleepEvent["isWakeUp"] = false;
         newWakeUpEvent["eventDate"] = wakeUpTime;
         newWakeUpEvent["isWakeUp"] = true;
-        sleepArray.insertAtFront(newFallAsleepEvent);
-        sleepArray.insertAtFront(newWakeUpEvent);
-        sortObjectArray(&sleepArray, byDateProperty: "eventDate");
+        stateArray.insertAtFront(newFallAsleepEvent);
+        stateArray.insertAtFront(newWakeUpEvent);
+        sortObjectArray(&stateArray, byDateProperty: "eventDate");
         self.saveData();
     }
 
     // MARK: General State Accessors
     func getStatesFrom(startDate: NSDate!, to endDate: NSDate!) -> [StateEvent]! {
         var returnArray = [StateEvent]();
-        for activityStateObject in activityArray {
-            let thisEventDate = activityStateObject["eventDate"] as! NSDate;
+        for stateObject in stateArray {
+            let thisEventDate = stateObject["eventDate"] as! NSDate;
             if (thisEventDate.isBetween(startDate, and: endDate)) {
-                returnArray.insertAtEnd(ActivityState(managedObject: activityStateObject)!);
-            }
-        }
-
-        for moodStateObject in moodArray {
-            let thisEventDate = moodStateObject["eventDate"] as! NSDate;
-            if (thisEventDate.isBetween(startDate, and: endDate)) {
-                    returnArray.insertAtEnd(MoodState(managedObject: moodStateObject)!);
-            }
-        }
-        for drugStateObject in drugArray {
-            let thisEventDate = drugStateObject["eventDate"] as! NSDate;
-            if (thisEventDate.isBetween(startDate, and: endDate)) {
-                    returnArray.insertAtEnd(DrugState(managedObject: drugStateObject)!);
-            }
-        }
-
-        for sleepStateObject in sleepArray {
-            let thisEventDate = sleepStateObject["eventDate"] as! NSDate;
-            if (thisEventDate.isBetween(startDate, and: endDate)) {
-                returnArray.insertAtEnd(SleepState(managedObject: sleepStateObject)!);
+                switch (stateObject.entity.name!) {
+                    case "MoodState":
+                        returnArray.insertAtEnd(MoodState(managedObject: stateObject)!);
+                    case "ActivityState":
+                        returnArray.insertAtEnd(ActivityState(managedObject: stateObject)!);
+                    case "DrugState":
+                        returnArray.insertAtEnd(DrugState(managedObject: stateObject)!);
+                    case "SleepState":
+                        returnArray.insertAtEnd(SleepState(managedObject: stateObject)!);
+                    default:
+                        let message = "Unexpected State Endity Description: \(stateObject.entity.name)";
+                        assertionFailure(message);
+                }
             }
         }
         returnArray.sort { (event1: StateEvent, event2: StateEvent) -> Bool in
