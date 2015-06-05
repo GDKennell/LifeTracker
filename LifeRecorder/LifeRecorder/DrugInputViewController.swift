@@ -36,7 +36,7 @@ class DrugInputViewController: UIViewController, UICollectionViewDelegate, UICol
     //MARK: IBActions
     @IBAction func recordButtonPressed() {
         assert(selectedDrugIndex != nil, "whoops");
-        DataStore.sharedDataStore.recordDrug(Drug(rawValue: selectedDrugIndex!), atDate: timePicker.date);
+        DataStore.sharedDataStore.recordDrug(AllDrugs[selectedDrugIndex!], atDate: timePicker.date);
         recordButton.enabled = false;
         selectedCell!.backgroundColor = UIColor.clearColor();
         selectedCell = nil;
@@ -55,7 +55,7 @@ class DrugInputViewController: UIViewController, UICollectionViewDelegate, UICol
 
     //MARK: UICollectionViewDataSource
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return Drug.count;
+        return AllDrugs.count;
     }
 
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
@@ -63,9 +63,9 @@ class DrugInputViewController: UIViewController, UICollectionViewDelegate, UICol
                                                                            forIndexPath: indexPath) as? DrugCollectionViewCell;
         assert(cell != nil, "Failed to create DrugCollectionViewCell");
 
-        let drug = Drug(rawValue: indexPath.row);
-        cell!.imageView.image = UIImage(named: DrugIconFilenames[drug!.rawValue]);
-        cell!.label.text = DrugStrings[drug!.rawValue];
+        let drug = AllDrugs[indexPath.row];
+        cell!.imageView.image = UIImage(named: drug.iconFilename);
+        cell!.label.text = drug.name;
 
         return cell!;
     }

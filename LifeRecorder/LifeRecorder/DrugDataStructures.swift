@@ -10,40 +10,37 @@ import Foundation
 import CoreData
 import UIKit
 
-let DrugStrings = ["Caffeine",
-                   "Alcohol",
-                   "Marijuana",
-                   "Tobacco",
-                   "Melatonin",
-                   "Ibuprophen",
-                   "Antibiotic"]
+struct Drug {
+    let name: String!;
+    let iconFilename: String!;
+}
 
-let DrugIconFilenames = ["drug_icon_caffeine",
-                         "drug_icon_alcohol",
-                         "drug_icon_marijuana",
-                         "drug_icon_tobacco",
-                         "drug_icon_pill",
-                         "drug_icon_pill",
-                         "drug_icon_pill"]
+var AllDrugs = [Drug(name: "Caffeine", iconFilename: "drug_icon_caffeine"),
+                Drug(name: "Alcohol", iconFilename: "drug_icon_alcohol"),
+                Drug(name: "Marijuana", iconFilename: "drug_icon_marijuana"),
+                Drug(name: "Tobacco", iconFilename: "drug_icon_tobacco"),
+                Drug(name: "Melatonin", iconFilename: "drug_icon_pill"),
+                Drug(name: "Ibuprophen", iconFilename: "drug_icon_pill"),
+                Drug(name: "Antibiotic", iconFilename: "drug_icon_pill")];
 
-enum Drug: Int {
-    static let count: Int = 7;
-
-    case Caffeine = 0
-    case Alcohol
-    case Marijuana
-    case Tobacco
-    case Melatonin
-    case Ibuprophen
-    case Antibiotic
+func lookupDrug(named drugName:String!) -> Drug? {
+    for aDrug in AllDrugs {
+        if aDrug.name == drugName {
+            return aDrug
+        }
+    }
+    assertionFailure("Could not lookup Drug named \(drugName)");
+    return nil;
 }
 
 class DrugState: StateEvent {
     var drug: Drug!;
     override init?(managedObject: NSManagedObject?) {
         super.init(managedObject: managedObject);
-        self.drug = Drug(rawValue: managedObject!["drug"] as! Int)
-        self.iconImage = UIImage(named: DrugIconFilenames[drug.rawValue]);
-        self.mainDisplayText = DrugStrings[drug.rawValue];
+        let drugName = managedObject!["drug"] as! String;
+        self.drug = lookupDrug(named: drugName)!
+
+        self.iconImage = UIImage(named: drug.iconFilename);
+        self.mainDisplayText = drug.name;
     }
 }

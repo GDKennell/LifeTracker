@@ -82,7 +82,7 @@ class DataStore {
         let nowDate = NSDate();
 
         let newDrugState = self.newDrugState();
-        newDrugState["drug"] = drug.rawValue;
+        newDrugState["drug"] = drug.name;
         newDrugState["eventDate"] = date;
 
         stateArray.insertAtFront(newDrugState);
