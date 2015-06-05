@@ -16,7 +16,7 @@ let DrugStrings = ["Caffeine",
                    "Tobacco",
                    "Melatonin",
                    "Ibuprophen",
-                   "Xanax"]
+                   "Antibiotic"]
 
 let DrugIconFilenames = ["drug_icon_caffeine",
                          "drug_icon_alcohol",
@@ -35,7 +35,7 @@ enum Drug: Int {
     case Tobacco
     case Melatonin
     case Ibuprophen
-    case Xanax
+    case Antibiotic
 }
 
 class DrugState: StateEvent {
