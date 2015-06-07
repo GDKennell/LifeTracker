@@ -13,7 +13,7 @@ class NewDrugCollectionViewCell: UICollectionViewCell {
     @IBOutlet var imageView: UIImageView!;
 }
 
-class NewDrugViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
+class NewDrugViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UITextFieldDelegate {
     //MARK: Properties
     @IBOutlet var drugNameTextField: UITextField!;
     @IBOutlet var addButton: UIButton!;
@@ -24,6 +24,7 @@ class NewDrugViewController: UIViewController, UICollectionViewDataSource, UICol
     //MARK: View Life Cycle
     override func viewDidLoad() {
         drugNameTextField.addTarget(self, action: Selector("updateAddButton"), forControlEvents: .EditingChanged)
+        drugNameTextField.delegate = self;
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -60,11 +61,19 @@ class NewDrugViewController: UIViewController, UICollectionViewDataSource, UICol
         return cell!;
     }
 
-    //MARK: IBActions
+    //MARK: UITextFieldDelegate
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        if addButton.enabled {
+            addButtonPressed();
+        }
+        textField.resignFirstResponder();
+        return true;
+    }
 
+    //MARK: IBActions
     @IBAction func addButtonPressed() {
-        AllDrugs.insertAtEnd(Drug(name: drugNameTextField.text,
-                          iconFilename: AllDrugIconFilenames[selectedDrugIndex!]));
+        let newDrug = Drug(name: drugNameTextField.text, iconFilename: AllDrugIconFilenames[selectedDrugIndex!]);
+        DataStore.sharedDataStore.addNewDrug(newDrug);
         self.dismissViewControllerAnimated(true, completion: nil);
     }
 

@@ -27,10 +27,12 @@ class DataStore {
     let activityStateEntityDescription: NSEntityDescription!;
     let moodStateEntityDescription: NSEntityDescription!;
     let drugStateEntityDescription: NSEntityDescription!;
+    let drugTypeEntityDescription: NSEntityDescription!;
     let sleepStateEntityDescription: NSEntityDescription!;
 
     // Local Storage
     var stateArray = [NSManagedObject]();
+    var drugTypes = [NSManagedObject]();
 
     // MARK: Initialization
     init!() {
@@ -47,23 +49,23 @@ class DataStore {
 
         activityStateEntityDescription = NSEntityDescription.entityForName("ActivityState", inManagedObjectContext: managedObjectContext)
         drugStateEntityDescription = NSEntityDescription.entityForName("DrugState", inManagedObjectContext: managedObjectContext)
+        drugTypeEntityDescription = NSEntityDescription.entityForName("DrugType", inManagedObjectContext: managedObjectContext)
         moodStateEntityDescription = NSEntityDescription.entityForName("MoodState", inManagedObjectContext: managedObjectContext)
         sleepStateEntityDescription = NSEntityDescription.entityForName("SleepState", inManagedObjectContext: managedObjectContext)
 
+        initializeDefaultDrugTypes();
 
         let drugStateFetchRequest = NSFetchRequest(entityName: "DrugState");
 
         var activityArray: [NSManagedObject] = fetchEntities(named: "ActivityState");
-        sortObjectArray(&activityArray, byDateProperty: "eventDate");
         var drugArray: [NSManagedObject] = fetchEntities(named: "DrugState");
-        sortObjectArray(&drugArray, byDateProperty: "eventDate");
         var moodArray: [NSManagedObject] = fetchEntities(named: "MoodState");
-        sortObjectArray(&moodArray, byDateProperty: "eventDate");
         var sleepArray: [NSManagedObject] = fetchEntities(named: "SleepState");
-        sortObjectArray(&sleepArray, byDateProperty: "eventDate");
 
         stateArray = activityArray + drugArray + moodArray + sleepArray;
         sortObjectArray(&stateArray, byDateProperty: "eventDate");
+
+        drugTypes = fetchEntities(named: "DrugType");
     }
 
     // MARK: Activity Accessors
@@ -89,6 +91,32 @@ class DataStore {
         sortObjectArray(&stateArray, byDateProperty: "eventDate");
 
         self.saveData();
+    }
+
+    func addNewDrug(drug: Drug!) {
+        var drugType = newDrugType();
+        drugType["name"] = drug.name;
+        drugType["iconFilename"] = drug.iconFilename;
+        drugTypes.insertAtEnd(drugType);
+        saveData();
+    }
+
+    func lookupDrug(named drugName:String!) -> Drug? {
+        for drugTypeObject in drugTypes {
+            if drugTypeObject["name"] as! String == drugName {
+                return Drug(managedObject: drugTypeObject);
+            }
+        }
+        assertionFailure("Could not lookup Drug named \(drugName)");
+        return nil;
+    }
+
+    func getAllDrugs() -> [Drug] {
+        var returnArray: [Drug] = [];
+        for drugTypeObject in drugTypes {
+            returnArray.insertAtEnd(Drug(managedObject: drugTypeObject));
+        }
+        return returnArray;
     }
 
     // MARK: Mood Accessors
@@ -167,11 +195,40 @@ class DataStore {
         return NSManagedObject(entity: drugStateEntityDescription, insertIntoManagedObjectContext: managedObjectContext);
     }
 
+    func newDrugType() -> NSManagedObject! {
+        return NSManagedObject(entity: drugTypeEntityDescription, insertIntoManagedObjectContext: managedObjectContext);
+    }
+
     func newSleepState() -> NSManagedObject! {
         return NSManagedObject(entity: sleepStateEntityDescription, insertIntoManagedObjectContext: managedObjectContext);
     }
 
     // MARK: Helpers
+    func initializeDefaultDrugTypes() {
+        let initKey = "init";
+        let initValue = NSUserDefaults.standardUserDefaults().valueForKey(initKey);
+        if (initValue != nil) {
+            return;
+        }
+
+        NSUserDefaults.standardUserDefaults().setValue("value", forKey: initKey);
+
+        var allDrugs = [Drug(name: "Caffeine", iconFilename: "drug_icon_caffeine"),
+                        Drug(name: "Alcohol", iconFilename: "drug_icon_alcohol"),
+                        Drug(name: "Marijuana", iconFilename: "drug_icon_marijuana"),
+                        Drug(name: "Tobacco", iconFilename: "drug_icon_tobacco"),
+                        Drug(name: "Melatonin", iconFilename: "drug_icon_pill"),
+                        Drug(name: "Ibuprophen", iconFilename: "drug_icon_pill"),
+                        Drug(name: "Antibiotic", iconFilename: "drug_icon_pill")];
+
+        for drug in allDrugs {
+            var drugType = newDrugType();
+            drugType["name"] = drug.name;
+            drugType["iconFilename"] = drug.iconFilename;
+        }
+        saveData();
+    }
+
     func saveData() {
         var error: NSError?
         if !managedObjectContext.save(&error) {

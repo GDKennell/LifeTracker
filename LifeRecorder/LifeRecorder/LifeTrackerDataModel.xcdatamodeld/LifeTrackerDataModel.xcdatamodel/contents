@@ -8,6 +8,10 @@
         <attribute name="drug" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="eventDate" optional="YES" attributeType="Date" syncable="YES"/>
     </entity>
+    <entity name="DrugType" syncable="YES">
+        <attribute name="iconFilename" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <entity name="MoodState" representedClassName="MoodState" syncable="YES">
         <attribute name="energyLevel" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="eventDate" optional="YES" attributeType="Date" syncable="YES"/>
@@ -22,5 +26,6 @@
         <element name="DrugState" positionX="-63" positionY="9" width="128" height="75"/>
         <element name="MoodState" positionX="-63" positionY="-18" width="128" height="90"/>
         <element name="SleepState" positionX="-36" positionY="36" width="128" height="75"/>
+        <element name="DrugType" positionX="-45" positionY="27" width="128" height="75"/>
     </elements>
 </model>

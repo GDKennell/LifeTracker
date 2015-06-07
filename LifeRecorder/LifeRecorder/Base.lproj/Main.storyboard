@@ -573,7 +573,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="xeK-ev-X7c">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="211"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="251"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="VOu-5U-p4T">
                                     <size key="itemSize" width="70" height="70"/>
@@ -640,7 +640,7 @@
                                 </connections>
                             </button>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qud-ZT-F7c" userLabel="Time Picker Container">
-                                <rect key="frame" x="0.0" y="251" width="320" height="100"/>
+                                <rect key="frame" x="0.0" y="271" width="320" height="100"/>
                                 <subviews>
                                     <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="10" translatesAutoresizingMaskIntoConstraints="NO" id="9sX-oA-BGY">
                                         <rect key="frame" x="0.0" y="-31" width="320" height="162"/>
@@ -661,8 +661,8 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="2Oo-IC-COL" firstAttribute="top" secondItem="Qud-ZT-F7c" secondAttribute="bottom" constant="40" id="0U3-Mh-OgT"/>
-                            <constraint firstItem="Qud-ZT-F7c" firstAttribute="top" secondItem="xeK-ev-X7c" secondAttribute="bottom" constant="40" id="JH6-zS-kzn"/>
+                            <constraint firstItem="2Oo-IC-COL" firstAttribute="top" secondItem="Qud-ZT-F7c" secondAttribute="bottom" constant="20" id="0U3-Mh-OgT"/>
+                            <constraint firstItem="Qud-ZT-F7c" firstAttribute="top" secondItem="xeK-ev-X7c" secondAttribute="bottom" constant="20" id="JH6-zS-kzn"/>
                             <constraint firstAttribute="trailingMargin" secondItem="xeK-ev-X7c" secondAttribute="trailing" constant="-16" id="Mdv-wg-urX"/>
                             <constraint firstAttribute="centerX" secondItem="2Oo-IC-COL" secondAttribute="centerX" id="Rqz-TI-PTE"/>
                             <constraint firstItem="Qud-ZT-F7c" firstAttribute="leading" secondItem="wMf-r8-sHK" secondAttribute="leadingMargin" constant="-16" id="hNw-PI-207"/>
@@ -829,7 +829,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="455"/>
                                 <subviews>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Uu0-Es-dIU">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="211"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="251"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="cbo-Y9-Tz7">
                                             <size key="itemSize" width="70" height="70"/>
@@ -897,7 +897,7 @@
                                         </connections>
                                     </button>
                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sM0-ST-y0Q" userLabel="Time Picker Container">
-                                        <rect key="frame" x="-8" y="251" width="336" height="100"/>
+                                        <rect key="frame" x="-8" y="271" width="336" height="100"/>
                                         <subviews>
                                             <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="10" translatesAutoresizingMaskIntoConstraints="NO" id="Cos-pA-1c4">
                                                 <rect key="frame" x="0.0" y="-31" width="336" height="162"/>
@@ -931,9 +931,9 @@
                                     <constraint firstItem="Uu0-Es-dIU" firstAttribute="top" secondItem="g14-hL-UMq" secondAttribute="top" id="5nt-h8-3jI"/>
                                     <constraint firstItem="nNC-AY-1fd" firstAttribute="top" secondItem="Cos-pA-1c4" secondAttribute="bottom" constant="9" id="9j0-wj-fhJ"/>
                                     <constraint firstAttribute="trailing" secondItem="Uu0-Es-dIU" secondAttribute="trailing" id="IVo-3O-NTM"/>
-                                    <constraint firstItem="sM0-ST-y0Q" firstAttribute="top" secondItem="Uu0-Es-dIU" secondAttribute="bottom" constant="40" id="M3h-Md-7mH"/>
+                                    <constraint firstItem="sM0-ST-y0Q" firstAttribute="top" secondItem="Uu0-Es-dIU" secondAttribute="bottom" constant="20" id="M3h-Md-7mH"/>
                                     <constraint firstAttribute="bottom" secondItem="nNC-AY-1fd" secondAttribute="bottom" constant="20" id="RdR-vE-bD7"/>
-                                    <constraint firstItem="nNC-AY-1fd" firstAttribute="top" secondItem="sM0-ST-y0Q" secondAttribute="bottom" constant="40" id="cp9-PJ-dac"/>
+                                    <constraint firstItem="nNC-AY-1fd" firstAttribute="top" secondItem="sM0-ST-y0Q" secondAttribute="bottom" constant="20" id="cp9-PJ-dac"/>
                                     <constraint firstItem="Uu0-Es-dIU" firstAttribute="leading" secondItem="g14-hL-UMq" secondAttribute="leading" id="ffZ-6L-hpV"/>
                                     <constraint firstAttribute="bottom" secondItem="nNC-AY-1fd" secondAttribute="bottom" constant="114" id="iXu-y5-Gc7"/>
                                     <constraint firstItem="sM0-ST-y0Q" firstAttribute="leading" secondItem="g14-hL-UMq" secondAttribute="leading" constant="-8" id="lFN-Mg-6ab"/>
