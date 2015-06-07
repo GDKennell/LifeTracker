@@ -15,6 +15,8 @@ struct Drug {
     let iconFilename: String!;
 }
 
+let AllDrugIconFilenames = ["drug_icon_pill", "drug_icon_caffeine", "drug_icon_alcohol", "drug_icon_marijuana", "drug_icon_tobacco"]
+
 var AllDrugs = [Drug(name: "Caffeine", iconFilename: "drug_icon_caffeine"),
                 Drug(name: "Alcohol", iconFilename: "drug_icon_alcohol"),
                 Drug(name: "Marijuana", iconFilename: "drug_icon_marijuana"),

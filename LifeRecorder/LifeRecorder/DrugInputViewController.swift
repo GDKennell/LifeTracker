@@ -19,18 +19,20 @@ class DrugInputViewController: UIViewController, UICollectionViewDelegate, UICol
     var selectedDrugIndex: Int?;
     var selectedCell: UICollectionViewCell?;
 
+    @IBOutlet var collectionView: UICollectionView!;
     @IBOutlet var recordButton: UIButton!;
     @IBOutlet var timePicker: UIDatePicker!;
 
     //MARK: View Life Cycle
     override func viewDidLoad() {
-
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "addButtonPressed")
     }
 
     override func viewWillAppear(animated: Bool) {
         if (selectedCell == nil) {
             recordButton.enabled = false;
         }
+        self.collectionView.reloadData();
     }
 
     //MARK: IBActions
@@ -41,6 +43,10 @@ class DrugInputViewController: UIViewController, UICollectionViewDelegate, UICol
         selectedCell!.backgroundColor = UIColor.clearColor();
         selectedCell = nil;
         selectedDrugIndex = nil;
+    }
+
+    func addButtonPressed() {
+        self.performSegueWithIdentifier("NewDrugSegue", sender: self);
     }
 
     //MARK: UICollectionViewDelegate
@@ -66,7 +72,6 @@ class DrugInputViewController: UIViewController, UICollectionViewDelegate, UICol
         let drug = AllDrugs[indexPath.row];
         cell!.imageView.image = UIImage(named: drug.iconFilename);
         cell!.label.text = drug.name;
-
         return cell!;
     }
 }

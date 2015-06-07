@@ -16,6 +16,7 @@
 		CA3DE1911AEFE7F5008356A8 /* LifeRecorderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA3DE1901AEFE7F5008356A8 /* LifeRecorderTests.swift */; };
 		CA3DE19B1AF002E2008356A8 /* UIView+Shortcuts.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA3DE19A1AF002E2008356A8 /* UIView+Shortcuts.swift */; };
 		CA3DE19D1AF003B8008356A8 /* MoodInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA3DE19C1AF003B8008356A8 /* MoodInputViewController.swift */; };
+		CA85308A1B247249000E5896 /* NewDrugViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA8530891B247249000E5896 /* NewDrugViewController.swift */; };
 		CAC3C88E1AFAB0E800D8BD9B /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC3C88D1AFAB0E800D8BD9B /* DataStore.swift */; };
 		CAC3C8911AFBBBAE00D8BD9B /* LifeTrackerDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CAC3C88F1AFBBBAE00D8BD9B /* LifeTrackerDataModel.xcdatamodeld */; };
 		CAC3C8931AFBBEC800D8BD9B /* MoodStateDataStructures.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC3C8921AFBBEC800D8BD9B /* MoodStateDataStructures.swift */; };
@@ -57,6 +58,7 @@
 		CA3DE1901AEFE7F5008356A8 /* LifeRecorderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeRecorderTests.swift; sourceTree = "<group>"; };
 		CA3DE19A1AF002E2008356A8 /* UIView+Shortcuts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Shortcuts.swift"; sourceTree = "<group>"; };
 		CA3DE19C1AF003B8008356A8 /* MoodInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoodInputViewController.swift; sourceTree = "<group>"; };
+		CA8530891B247249000E5896 /* NewDrugViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewDrugViewController.swift; sourceTree = "<group>"; };
 		CAC3C88D1AFAB0E800D8BD9B /* DataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
 		CAC3C8901AFBBBAE00D8BD9B /* LifeTrackerDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = LifeTrackerDataModel.xcdatamodel; sourceTree = "<group>"; };
 		CAC3C8921AFBBEC800D8BD9B /* MoodStateDataStructures.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoodStateDataStructures.swift; sourceTree = "<group>"; };
@@ -113,16 +115,10 @@
 		CA3DE1751AEFE7F5008356A8 /* LifeRecorder */ = {
 			isa = PBXGroup;
 			children = (
+				CA8530881B247212000E5896 /* View Controllers */,
 				CAC3C8991AFBD96C00D8BD9B /* Extensions */,
 				CAC3C8941AFBD0CF00D8BD9B /* Data Model */,
 				CA3DE1781AEFE7F5008356A8 /* AppDelegate.swift */,
-				CAD25D241B083EF10075D3FE /* ActivityInputViewController.swift */,
-				CA3DE17A1AEFE7F5008356A8 /* FirstViewController.swift */,
-				CAD25D1C1B01B01C0075D3FE /* DrugInputViewController.swift */,
-				CA3DE19C1AF003B8008356A8 /* MoodInputViewController.swift */,
-				CAD590581AF14FB2009CF14F /* SleepInputViewController.swift */,
-				CAD5905A1AF30E48009CF14F /* SleepInputClockView.swift */,
-				CA3DE17C1AEFE7F5008356A8 /* TodayListViewController.swift */,
 				CA3DE17E1AEFE7F5008356A8 /* Main.storyboard */,
 				CA3DE1811AEFE7F5008356A8 /* Images.xcassets */,
 				CA3DE1831AEFE7F5008356A8 /* LaunchScreen.xib */,
@@ -154,6 +150,21 @@
 				CA3DE18F1AEFE7F5008356A8 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		CA8530881B247212000E5896 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				CAD25D241B083EF10075D3FE /* ActivityInputViewController.swift */,
+				CA3DE17A1AEFE7F5008356A8 /* FirstViewController.swift */,
+				CAD25D1C1B01B01C0075D3FE /* DrugInputViewController.swift */,
+				CA3DE19C1AF003B8008356A8 /* MoodInputViewController.swift */,
+				CAD590581AF14FB2009CF14F /* SleepInputViewController.swift */,
+				CAD5905A1AF30E48009CF14F /* SleepInputClockView.swift */,
+				CA3DE17C1AEFE7F5008356A8 /* TodayListViewController.swift */,
+				CA8530891B247249000E5896 /* NewDrugViewController.swift */,
+			);
+			name = "View Controllers";
 			sourceTree = "<group>";
 		};
 		CAC3C8941AFBD0CF00D8BD9B /* Data Model */ = {
@@ -288,6 +299,7 @@
 				CAE5A38B1AFBF75C009D808D /* NSManagedObject+Shortcuts.swift in Sources */,
 				CA3DE19B1AF002E2008356A8 /* UIView+Shortcuts.swift in Sources */,
 				CAD25D1D1B01B01C0075D3FE /* DrugInputViewController.swift in Sources */,
+				CA85308A1B247249000E5896 /* NewDrugViewController.swift in Sources */,
 				CAD25D211B05A0680075D3FE /* DataStructures.swift in Sources */,
 				CAC3C89B1AFBD98300D8BD9B /* NSDate+Shortcuts.swift in Sources */,
 				CA3DE17D1AEFE7F5008356A8 /* TodayListViewController.swift in Sources */,
